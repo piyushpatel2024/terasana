@@ -1,0 +1,53 @@
+<section class="tc mv7 page-width">
+  <h1 class="tc headings-font f-s f-l-ns dark lh-title fw6">Reviews</h1>
+
+  <div
+    id="stamped-main-widget"
+    style="margin: 0 auto !important;"
+    class="center"
+    data-product-id="{{ product.id }}"
+    data-name="{{ product.title | escape }}"
+    data-style-color-star="#64CCC9"
+    data-widget-style="standard"
+    data-product-sku="{{product.handle}}"
+    />
+</section>
+
+<section class="section-review-disclaimer" data-section-id="review-disclaimer" data-section-type="review-disclaimer">
+  <div id="vue-review-disclaimer"></div>
+</section>
+
+
+
+{% comment %}
+For reference if I ever need to interact via JS.
+  window.StampedFn
+  ---
+  init: ƒ,
+  toggleForm: ƒ,
+  setRating: ƒ,
+  submitForm: ƒ,
+  submitQuestionForm: ƒ, …}
+  closeSurveyOptin: ƒ ()
+  filterClear: ƒ ()
+  filterReviews: ƒ (e,t)
+  init: ƒ W(e)
+  initOptions: undefined
+  loadBadges: ƒ c()
+  loadSurveyOptin: ƒ (e)
+  loadWidget: ƒ l()
+  openUGCModal: ƒ (w,e,t,a,r,y,s)
+  openUGCPhoto: ƒ (s,n,o)
+  pageQuestions: ƒ (e)
+  pageReviews: ƒ A(e,t,a)
+  pageWidget: ƒ (e)
+  setRating: ƒ (e)
+  sortReviews: ƒ (e)
+  submitForm: ƒ (e)
+  submitQuestionForm: ƒ ()
+  toggleForm: ƒ (e)
+  toggleFormEdit: ƒ ()
+  voteReview: ƒ (e,t,a)
+  __proto__: Object
+{% endcomment %}
+

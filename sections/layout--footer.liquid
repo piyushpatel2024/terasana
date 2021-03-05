@@ -1,0 +1,399 @@
+{% capture footerJSON %}
+  {% include 'data-json--footer' %}
+{% endcapture %}
+
+<section 
+  class="footer-section"
+  data-section-id="{{ section.id }}" 
+  data-section-type="layout-footer"
+  data-vue-footer-data="{{ footerJSON | url_escape }}" 
+  data-vue-settings="{{ section.settings | json | url_escape }}"
+  data-vue-theme="light">
+
+  {%comment%}<div style="background:orange;color:black;padding:5px">{{ footerJSON }}</div>{%endcomment%}
+  {%comment%}<div style="background:yellow;color:black;padding:5px">{{ section.settings | json }}</div>{%endcomment%}
+  {% if section.settings.instagram_title_above != blank %}
+  <h1 class="above_title">{{ section.settings.instagram_title_above }}</h1>
+  {% endif %}
+  <div id="vue-layout-footer"></div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Footer"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section"
+      }
+    },
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme (todo)"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Instagram"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "instagram_enable",
+      "label": {
+        "en": "Show instagram block"
+      },
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "instagram_title_above",
+      "label": {
+        "en": "Instagram Above Title"
+      }
+    },
+    {
+      "type": "text",
+      "id": "instagram_title",
+      "label": {
+        "en": "Instagram Below Title"
+      }
+    },
+    {
+      "type": "text",
+      "id": "instagram_token",
+      "label": {
+        "en": "Token"
+      }
+    },
+    {
+      "type": "range",
+      "id": "instagram_columns",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": {
+      "en": "Columns"
+      },
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "instagram_gutter",
+      "label": {
+        "en": "Gutter"
+      },
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": {
+            "en": "none"
+          }
+        },
+        {
+          "value": "0.25",
+          "label": {
+            "en": "extra small"
+          }
+        },
+        {
+          "value": "0.375",
+          "label": {
+            "en": "small"
+          }
+        },
+        {
+          "value": "0.5",
+          "label": {
+            "en": "medium"
+          }
+        },
+        {
+          "value": "0.875",
+          "label": {
+            "en": "large"
+          }
+        },
+        {
+          "value": "1",
+          "label": {
+            "en": "extra large"
+          }
+        },
+        {
+          "value": "1.375",
+          "label": {
+            "en": "huge"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "omg"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "instagram_ratio",
+      "label": {
+        "en": "List elements Ratio"
+      },
+      "default": "1x1",
+      "options": [
+        {
+          "value": "16x9",
+          "label": {
+            "en": "16x9"
+          }
+        },
+        {
+          "value": "1x1",
+          "label": {
+            "en": "1x1"
+          }
+        },
+        {
+          "value": "3x4",
+          "label": {
+            "en": "3x4"
+          }
+        },
+        {
+          "value": "4x3",
+          "label": {
+            "en": "4x3"
+          }
+        },
+        {
+          "value": "4x6",
+          "label": {
+            "en": "4x6"
+          }
+        },
+        {
+          "value": "5x7",
+          "label": {
+            "en": "5x7"
+          }
+        },
+        {
+          "value": "5x8",
+          "label": {
+            "en": "5x8"
+          }
+        },
+        {
+          "value": "6x4",
+          "label": {
+            "en": "6x4"
+          }
+        },
+        {
+          "value": "7x5",
+          "label": {
+            "en": "7x5"
+          }
+        },
+        {
+          "value": "8x5",
+          "label": {
+            "en": "8x5"
+          }
+        },
+        {
+          "value": "9x16",
+          "label": {
+            "en": "9x16"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "instagram_height",
+      "label": {
+        "en": "List elements height (optional - override ratio if set)"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "instagram_full_bleed",
+      "label": {
+        "en": "Section Full Bleed"
+      }
+    },
+    {
+      "type": "text",
+      "id": "instagram_heading_custom_classes",
+      "label": {
+        "en": "Heading Custom classes (separate with space)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "instagram_custom_classes",
+      "label": {
+        "en": "Custom classes (separate with space)"
+      }
+    },
+    {
+      "type": "select",
+      "id": "instagram_design",
+      "label": {
+        "en": "design"
+      },
+      "default": "slider",
+      "options": [
+        {
+          "value": "grid",
+          "label": {
+            "en": "grid"
+          }
+        },
+        {
+          "value": "slider",
+          "label": {
+            "en": "slider"
+          }
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "instagram_post_limit",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "label": {
+      "en": "Max amount of poss"
+      },
+      "default": 6
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Newsletter"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "newsletter_enabled",
+      "label": {
+        "en": "Enable newsletter"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "newsletter_logo",
+      "label": {
+        "en": "Newsletter logo"
+      },
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": {
+        "en": "Newsletter title"
+      },
+      "default": "DONT'T MISS A BEAT"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_body",
+      "label": {
+        "en": "Newsletter body"
+      },
+      "default": "Signup for Selena updates, sales and more..."
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Menu"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "footer_linklist",
+      "label": {
+        "en": "Primary menu"
+      },
+      "default": "footer",
+      "info": {
+        "en": "This menu won't show dropdown items"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "footer_linklist_two",
+      "label": {
+        "en": "Additional menu"
+      },
+      "info": {
+        "en": "This menu won't show dropdown items"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Social Media"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_social_networks",
+      "label": {
+        "en": "Show social networks"
+      },
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+{% if section.settings.instagram_title == blank %}
+<style>
+  .footer-insta-container .page-width.flex.flex-wrap.items-center.justify-start.pv7{
+    display:none;
+  }
+</style>
+{% endif %}

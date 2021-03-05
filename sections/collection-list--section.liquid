@@ -1,0 +1,245 @@
+<section 
+  data-section-id="{{ section.id }}" 
+  data-section-type="collection-list"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+
+  <div id="vue-collection-list"></div>
+</section>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Collection List Settings"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section"
+      }
+    },
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme (todo)"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": {
+      "en": "Columns"
+      },
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "gutter",
+      "label": {
+        "en": "Gutter"
+      },
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": {
+            "en": "none"
+          }
+        },
+        {
+          "value": "0.25",
+          "label": {
+            "en": "extra small"
+          }
+        },
+        {
+          "value": "0.375",
+          "label": {
+            "en": "small"
+          }
+        },
+        {
+          "value": "0.5",
+          "label": {
+            "en": "medium"
+          }
+        },
+        {
+          "value": "0.875",
+          "label": {
+            "en": "large"
+          }
+        },
+        {
+          "value": "1",
+          "label": {
+            "en": "extra large"
+          }
+        },
+        {
+          "value": "1.375",
+          "label": {
+            "en": "huge"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "omg"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": {
+        "en": "List elements Ratio"
+      },
+      "default": "1x1",
+      "options": [
+        {
+          "value": "16x9",
+          "label": {
+            "en": "16x9"
+          }
+        },
+        {
+          "value": "1x1",
+          "label": {
+            "en": "1x1"
+          }
+        },
+        {
+          "value": "3x4",
+          "label": {
+            "en": "3x4"
+          }
+        },
+        {
+          "value": "4x3",
+          "label": {
+            "en": "4x3"
+          }
+        },
+        {
+          "value": "4x6",
+          "label": {
+            "en": "4x6"
+          }
+        },
+        {
+          "value": "5x7",
+          "label": {
+            "en": "5x7"
+          }
+        },
+        {
+          "value": "5x8",
+          "label": {
+            "en": "5x8"
+          }
+        },
+        {
+          "value": "6x4",
+          "label": {
+            "en": "6x4"
+          }
+        },
+        {
+          "value": "7x5",
+          "label": {
+            "en": "7x5"
+          }
+        },
+        {
+          "value": "8x5",
+          "label": {
+            "en": "8x5"
+          }
+        },
+        {
+          "value": "9x16",
+          "label": {
+            "en": "9x16"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "height",
+      "label": {
+        "en": "List elements height (optional - override ratio if set)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "text_title",
+      "label": {
+        "en": "Page Title"
+      }
+    },
+    {
+      "type": "text",
+      "id": "text_subtitle",
+      "label": {
+        "en": "Page Subtitle"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Custom Classes"
+      }
+    },
+    {
+      "type": "text",
+      "id": "heading_custom_classes",
+      "label": {
+        "en": "Heading Custom classes (separate with space)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "section_custom_classes",
+      "label": {
+        "en": "Section Custom classes (separate with space)"
+      }
+    }
+  ]
+}
+{% endschema %}
+

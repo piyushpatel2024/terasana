@@ -1,0 +1,85 @@
+{%- paginate customer.orders by 20 -%}
+{% capture account_data %}
+{
+  "address": {{ customer.default_address | format_address | json }},
+  "address_count": {{ customer.addresses_count | json }},
+  "orders": [
+  {%- for order in customer.orders -%}
+    {%- if forloop.first != true %},{% endif -%}
+    {
+      "name": {{ order.name | json }},
+      "href": {{ order.customer_url | json }},
+      "date": {{ order.created_at | date: format: 'month_day_year' | json }},
+      "payment": {{ order.financial_status_label | json }},
+      "fulfillment": {{ order.fulfillment_status_label | json }},
+      "price": {{ order.total_price | money | json }}
+    }
+  {%- endfor -%}
+  ]
+  {%- if paginate.pages > 1 -%},
+  "pagination": {% include 'pagination' %}
+  {%- endif -%}
+}
+{% endcapture %}
+{%- endpaginate -%}
+
+<section
+  class="section-account" 
+  data-section-type="account"
+  data-section-id="{{ section.id }}" 
+  data-vue-settings="{{ section.settings | json | url_escape }}"
+  data-vue-theme="{{ section.settings.section_theme | json | url_escape }}"
+  data-vue-account-data="{{ account_data | url_escape }}">
+
+  <div id="vue-account"></div>
+
+  {% comment %}
+  <pre style="background:black;color:#fff;">{{ account_settings }}</pre>
+  <pre style="background:black;color:#fff;">{{ account_data }}</pre>
+  {% endcomment %}
+</section>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Account Settings"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

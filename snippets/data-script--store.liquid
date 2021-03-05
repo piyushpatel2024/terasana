@@ -1,0 +1,17 @@
+
+{% comment %} theme object root {% endcomment %}
+<script id="theme-{{ template.name }}">
+  {% include 'data-json--store-dynamic' %}
+  if (typeof window.theme === 'undefined' ) {
+    {% include 'data-json--store-static' %}
+    window.theme = {
+      Customizer: {},
+      Store: {
+        dynamic: {{ themeDataDynamic }},
+        static: {{ themeDataStatic }}
+      }
+    }
+  }
+
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+</script>

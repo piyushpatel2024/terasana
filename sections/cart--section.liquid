@@ -1,0 +1,225 @@
+{% capture buttons %}
+  {% if additional_checkout_buttons %}
+    {{ content_for_additional_checkout_buttons }}
+  {% endif %}
+{% endcapture %}
+
+<section 
+  class="cart-section"
+  data-section-id="{{ section.id }}" 
+  data-section-type="cart"
+  data-vue-settings="{{ section.settings | json | url_escape }}" 
+  data-vue-cart-data="{{ cart | json | url_escape }}" 
+  data-vue-in-slideout="false"
+  data-vue-extra-checkouts="{{ buttons | json | url_escape }}"
+  data-vue-theme="light">
+  
+  <div id="vue-cart"></div> 
+  
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Cart Settings"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_title",
+        "label": {
+          "en": "Cart title"
+        },
+        "info": {
+          "en": "i.e Your Bag.. Configured via languages/cart"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Free Shipping"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_free_shipping",
+        "label": {
+          "en": "Free shipping notice"
+        },
+        "info": {
+          "en": "You are $X away from FREE shipping. Configured @ theme_settings"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Savings Total"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_savings",
+        "label": {
+          "en": "Savings total"
+        },
+        "info": {
+          "en": "You're saving - $0"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "With Upsell Items"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_upsell",
+        "label": {
+          "en": "Upsell items"
+        },
+        "info": {
+          "en": "Not available (WIP)"
+        },
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Extra Payments"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_extra_checkouts_cart",
+        "label": {
+          "en": "Extra checkouts (Cart Page)"
+        },
+        "info": {
+          "en": "Gpay, Apay, Paypal if available."
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_extra_checkouts_minicart",
+        "label": {
+          "en": "Extra checkouts (Minicart)"
+        },
+        "info": {
+          "en": "Gpay, Apay, Paypal if available."
+        },
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "CTA links"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_links",
+        "label": {
+          "en": "Footer Links"
+        },
+        "info": {
+          "en": "Will show any link that's enabled bellow"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_link_view_cart",
+        "label": {
+          "en": "View Cart"
+        },
+        "info": {
+          "en": "Minicart only"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_link_countinue_shopping_cart",
+        "label": {
+          "en": "Continue Shipping"
+        },
+        "info": {
+          "en": "In full cart page"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_link_countinue_shopping_minicart",
+        "label": {
+          "en": "Continue Shipping"
+        },
+        "info": {
+          "en": "In minicart"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_link_clear_cart_cart",
+        "label": {
+          "en": "Clear Cart"
+        },
+        "info": {
+          "en": "In full cart page"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_link_clear_cart_minicart",
+        "label": {
+          "en": "Clear Cart"
+        },
+        "info": {
+          "en": "In minicart"
+        },
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

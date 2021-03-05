@@ -1,0 +1,98 @@
+/* 
+  This styles will be injected inside the zendesk iframe head so that we can overwrite any styles
+  @see /styles/apps/zendesk-base.scss as a reference for all zd default styles
+*/
+#Embed *:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/*  WIDGET */
+.src-component-button-ButtonGroup-container.src-styles-components-Button-ButtonGroup.src-component-button-ButtonGroup-buttonRight.src-component-submitTicket-SubmitTicketForm-buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}   
+#Embed label {
+  margin-bottom: .5rem !important;
+  display: block;
+}
+#Embed .src-component-submitTicket-SubmitTicketForm-container {
+  padding-top: 1.5rem !important;
+}
+#Embed input {
+  border: 0 !important;
+  border-bottom: 1px solid black !important;
+  border-radius: 0 !important;
+}
+
+#Embed textarea {
+  border: 1px solid black !important;
+  border-radius: 0 !important;
+}
+
+#Embed input:focus, #Embed textarea:focus {
+  outline: none !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* SEND msg button hover */
+#Embed .src-component-button-ButtonGroup-container > button:last-child:hover {
+  background-color: var(--brand-color-dark-alt) !important;
+  transition: background-color .2s ease-in-out, color .35s ease-in-out; 
+  border-color: var(--brand-color-dark-alt) !important;
+}
+
+
+#Embed .u-userLauncherColor:not([disabled]):hover{
+  background-color: var(--brand-color-dark-alt) !important;
+  transition: background-color .2s ease-in-out, color .35s ease-in-out;
+}
+
+/* Make help button rectangle (no radious) */
+body .u-borderTransparent {
+  border: 0 !important;
+}
+
+#Embed button, .src-component-container-Container-container, .src-component-launcher-WidgetLauncher-wrapper, #Embed .src-component-container-ScrollContainer-containerDesktop {
+  border-radius: 0 !important;
+}  
+
+#Embed button {
+  font-family: var(--font-header-family) !important;
+  text-transform: uppercase;
+  line-height: inherit !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}   
+
+
+.src-component-launcher-WidgetLauncher-label {
+  font-family: var(--font-header-family);
+  text-transform: uppercase;
+}
+
+/* Hide ? icon on desktop */
+#Embed .src-component-launcher-WidgetLauncher-icon:not(.src-component-Icon-mobile) {
+  display: none !important;
+}
+
+
+
+
+:root, html, body {
+  font-size: 12px !important;
+}
+
+/* 
+$font-header-family: var(--font-header-family);
+// Font Base
+$font-size-base: var(--type-base-size);
+$font-base-family: var(--font-body-family);
+$font-style-body: var(--font-style-body);
+*/
+
+
+

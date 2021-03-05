@@ -1,0 +1,164 @@
+{% assign mainLast = false %}
+{% assign subLast = false %}
+{%- capture mainMenu -%}
+	[
+	{%- for link in linklists['main-menu'].links -%}
+		{%- if forloop.last -%}{% assign mainLast = true %}{%- endif -%}
+			{%- case link.levels -%}
+				{%- when 0 -%}
+					{"active":"false","title":"{{ link.title }}","links":"","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}"}{%- unless mainLast -%},{% endunless %}
+				{%- when 1 -%}
+					{"active":"false","title":"{{ link.title }}","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}",
+					{{- '"links": [' -}}
+					{% for l in link.links %}
+						{"active":"false","title":"{{ l.title }}","url":"{{ l.url }}","levels":"{{ l.levels }}","handle":"{{ l.handle }}"}{%- unless forloop.last -%},{% endunless %}
+					{%- endfor -%}
+				]}
+				{%- unless mainLast -%},{% endunless %}
+			{%- endcase -%}
+		{%- endfor -%}
+	]
+{%- endcapture -%}
+
+{% assign mainLast = false %}
+{% assign subLast = false %}
+{%- capture mobileMenu -%}
+	[
+	{%- for link in linklists['mobile-menu'].links -%}
+		{%- if forloop.last -%}{% assign mainLast = true %}{%- endif -%}
+			{%- case link.levels -%}
+				{%- when 0 -%}
+					{"active":"false","title":"{{ link.title }}","links":"","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}"}{%- unless mainLast -%},{% endunless %}
+				{%- when 1 -%}
+					{"active":"false","title":"{{ link.title }}","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}",
+					{{- '"links": [' -}}
+					{% for l in link.links %}
+						{"active":"false","title":"{{ l.title }}","url":"{{ l.url }}","levels":"{{ l.levels }}","handle":"{{ l.handle }}"}{%- unless forloop.last -%},{% endunless %}
+					{%- endfor -%}
+				]}
+				{%- unless mainLast -%},{% endunless %}
+			{%- endcase -%}
+		{%- endfor -%}
+	]
+{%- endcapture -%}
+
+{% assign mainLast = false %}
+{% assign subLast = false %}
+{%- capture themesMenu -%}
+	[
+	{%- for link in linklists['themes-menu'].links -%}
+		{%- if forloop.last -%}{%- assign mainLast = true -%}{%- endif -%}
+			{%- case link.levels -%}
+				{%- when 0 -%}
+					{"active":"false","title":"{{ link.title }}","links":"","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}"}{%- unless mainLast -%},{% endunless %}
+				{%- when 1 -%}
+					{"active":"false","title":"{{ link.title }}","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}",
+					{{- '"links": [' -}}
+					{%- for l in link.links -%}
+						{"active":"false","title":"{{ l.title }}","url":"{{ l.url }}","levels":"{{ l.levels }}","handle":"{{ l.handle }}"}{%- unless forloop.last -%},{% endunless %}
+					{%- endfor -%}
+				]}
+				{%- unless mainLast -%},{%- endunless -%}
+			{%- endcase -%}
+		{%- endfor -%}
+	]
+{%- endcapture -%}
+
+
+{% capture policies_array %}
+[
+{% for policy in shop.policies %}
+  {
+    "title": {{ policy.title | json }},
+    "body": {{ policy.body | json }}
+  }
+  {% if forloop.last == true %}
+  {% else %}
+    ,
+  {% endif %}
+{% endfor %}
+]
+{% endcapture %}
+
+{% capture placeholder_svgs %}
+  {% include 'data-json--placeholder-svgs' %}
+{% endcapture %}
+
+{% include 'data-json--social-networks' %}
+
+{% capture cartJSON %}
+{{ cart | json }}
+{% endcapture %}
+
+{% capture emptyObject %} {} {% endcapture %}
+{% capture emptyArray %} [] {% endcapture %}
+
+{% capture themeDataStatic %}
+{
+  "strings": {
+    "addToCart": {{ 'products.product.add_to_cart' | t | json }},
+    "soldOut": {{ 'products.product.sold_out' | t | json }},
+    "unavailable": {{ 'products.product.unavailable' | t | json }},
+    "regularPrice": {{ 'products.product.regular_price' | t | json }},
+    "sale": {{ 'products.product.on_sale' | t | json }},
+    "showMore": {{ 'general.filters.show_more' | t | json }},
+    "showLess": {{ 'general.filters.show_less' | t | json }},
+    "addressError": {{ 'sections.map.address_error' | t | json }},
+    "addressNoResults": {{ 'sections.map.address_no_results' | t | json }},
+    "addressQueryLimit": {{ 'sections.map.address_query_limit_html' | t | json }},
+    "authError": {{ 'sections.map.auth_error_html' | t | json }},
+    "newWindow": {{ 'general.accessibility.link_messages.new_window' | t | json }},
+    "external": {{ 'general.accessibility.link_messages.external' | t | json }},
+    "newWindowExternal": {{ 'general.accessibility.link_messages.new_window_and_external' | t | json }}
+  },
+  "placeholders": {{ placeholder_svgs }},
+  "settings": {{ settings | json }},
+  "colors": {
+    "brand_color_dark_alt": "{{ settings.brand_color_dark_alt }}",
+    "brand_color_dark": "{{ settings.brand_color_dark }}",
+    "brand_color_light_alt": "{{ settings.brand_color_light_alt }}",
+    "brand_color_light": "{{ settings.brand_color_light }}",
+    "checkout_button_color": "{{ settings.checkout_button_color }}",
+    "checkout_error_color": "{{ settings.checkout_error_color }}",
+    "checkout_sidebar_background_color": "{{ settings.checkout_sidebar_background_color }}"
+  },
+  "fonts": {
+    "type_header_font": "{{ settings.type_header_font }}",
+    "type_button_font": "{{ settings.type_button_font }}",
+    "type_body_font": "{{ settings.type_body_font }}",
+    "type_base_font": "{{ settings.type_base_font }}"
+  },
+  "social": {{ social_networks }},
+  "menus": {
+    "main": {{ mainMenu }},
+    "mobile": {{ mobileMenu }},
+    "themes": {{ themesMenu }}
+  },
+  "shop": {
+    "address": {{ shop.address | json }},
+    "collections": {{ collections | json }},
+    "collections_count": {{ shop.collections_count | json }},
+    "currency": "{{ shop.currency }}",
+    "description": {{ shop.description | json }},
+    "domain": "{{ shop.domain }}",
+    "enabled_payment_types": {{ shop.enabled_payment_types | json }},
+    "email": "{{ shop.email }}",
+    "name": {{ shop.name | json }},
+    "moneyFormat": {{ shop.money_format | json }},
+    "money_with_currency_format": {{ shop.money_with_currency_format | json }},
+    "password_message": {{ shop.password_message | json }},
+    "products_count": {{ shop.products_count | json }},
+    "policies": {{ policies_array }},
+    "taxes_included": {{ shop.taxes_included | json }},
+    "types": {{ shop.types | json }},
+    "url": {{ shop.url | json }},
+    {% comment %} "vendors": {{ shop.vendors | json }}, {% endcomment %}
+    "theme": {
+      "id": "{{ theme.id }}",
+      "name": "{{ theme.name }}"
+    },
+    "metafields": {{ shop.metafields.c_f | json }}
+  },
+  "cartJSON": {{ cartJSON }}
+}
+{% endcapture %}

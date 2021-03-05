@@ -1,0 +1,103 @@
+{% assign mainLast = false %}
+{% assign subLast = false %}
+{%- capture mainMenu -%}
+	{{- '{"mainMenu": [' -}}
+	{%- for link in linklists['main-menu'].links -%}
+		{%- if forloop.last -%}{% assign mainLast = true %}{%- endif -%}
+			{%- case link.levels -%}
+				{%- when 0 -%}
+					{"active":"false","title":"{{ link.title }}","links":"","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}"}{%- unless mainLast -%},{% endunless %}
+				{%- when 1 -%}
+					{"active":"false","title":"{{ link.title }}","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}",
+					{{- '"links": [' -}}
+					{% for l in link.links %}
+						{"active":"false","title":"{{ l.title }}","url":"{{ l.url }}","levels":"{{ l.levels }}","handle":"{{ l.handle }}"}{%- unless forloop.last -%},{% endunless %}
+					{%- endfor -%}
+				]}
+				{%- unless mainLast -%},{% endunless %}
+			{%- endcase -%}
+		{%- endfor -%}
+	]}
+{%- endcapture -%}
+{% assign mainLast = false %}
+{% assign subLast = false %}
+
+{%- capture themesMenu -%}
+	{{- '{"themesMenu": [' -}}
+	{%- for link in linklists['themes-menu'].links -%}
+		{%- if forloop.last -%}{%- assign mainLast = true -%}{%- endif -%}
+			{%- case link.levels -%}
+				{%- when 0 -%}
+					{"active":"false","title":"{{ link.title }}","links":"","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}"}{%- unless mainLast -%},{% endunless %}
+				{%- when 1 -%}
+					{"active":"false","title":"{{ link.title }}","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}",
+					{{- '"links": [' -}}
+					{%- for l in link.links -%}
+						{"active":"false","title":"{{ l.title }}","url":"{{ l.url }}","levels":"{{ l.levels }}","handle":"{{ l.handle }}"}{%- unless forloop.last -%},{% endunless %}
+					{%- endfor -%}
+				]}
+				{%- unless mainLast -%},{%- endunless -%}
+			{%- endcase -%}
+		{%- endfor -%}
+	]}
+{%- endcapture -%}
+
+
+{% assign svg_logo = section.settings.logo_source_svg | json %}
+
+
+{% comment %} HeaderData {% endcomment %}
+{
+	"section": {
+		"id": "{{ section.id }}"
+	},
+	"settings": {
+		"announcementBar": {
+			"enabled": {{ section.settings.announcement }},
+			"home_page_only": {{ section.settings.home_page_only }},
+			"overwrite_theme_colors": {{ section.settings.overwrite_theme_colors }},
+			"delay": {{ section.settings.announcement_delay }},
+			"speed": {{ section.settings.announcement_speed }},
+			"slides": ["{{ section.settings.message_text | escape }}", "{{ section.settings.message_text_two | escape }}", "{{ section.settings.message_text_three | escape }}"],
+			"link": "{{ section.settings.message_link }}",
+			"color_text": "{{ section.settings.announcement_color_text }}",
+			"color_bg": "{{ section.settings.announcement_color_bg }}"
+		},
+		"logo": {
+			"source": "{{ section.settings.logo_source }}",
+			"source_svg": {{ svg_logo }},
+			"alt": "{{ section.settings.logo.alt | default: shop.name }}",
+			"align_logo": "{{ section.settings.align_logo }}",
+			"img_url": "{{ section.settings.logo | img_url: 'master' }}",
+			"logo_max_width": "{{ section.settings.logo_max_width | default: '100' }}"
+		},
+		"search": {
+			"enabled": {{ section.settings.enable_search | json }}
+		},
+		"cart": {
+			"enabled": {{ section.settings.enable_cart | json }}
+		},
+		"account": {
+			"enabled": {{ section.settings.enable_account | json }}
+		},
+		"headerDrawer": {
+			"collectionsNavSlider": {
+        "enabled": {{ section.settings.enable_collections_swiper_nav | json }}
+      },
+      "mainNav": {
+        "enabled": {{ section.settings.enable_main_nav | json }}
+      },
+      "socialNetworks": {
+        "enabled": {{ section.settings.enable_social_networks | json }}
+      }
+		},
+		"mainNav": {{- mainMenu -}},
+		"themesNav": {{- themesMenu -}},
+		"menu": "{{ section.settings.main_linklist }}",
+    "theme": {
+      "default": {{ section.settings.section_theme | json }},
+      "overwrite": {{ section.settings.section_theme_overwrite | json }},
+      "templates": {{ section.settings.section_theme_overwrite_templates | split: "," | json }}
+    }
+	}
+}

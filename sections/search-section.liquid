@@ -1,0 +1,111 @@
+<section 
+  data-section-id="{{ section.id }}"  
+  data-section-type="search"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+   
+  <div id="vue-search"></div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Search Options"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "collection",
+        "id": "search_in_collection",
+        "info": "Limit search to this collection",
+        "label": {
+          "en": "Search collection"
+        }
+      },
+      {
+        "type": "select",
+        "id": "search_render_in",
+        "label": {
+          "en": "Render search in"
+        },
+        "info": "Where should the search results be displayed",
+        "default": "search",
+        "options": [
+          {
+            "value": "search",
+            "label": {
+              "en": "/search page"
+            }
+          },
+          {
+            "value": "header-drawer",
+            "label": {
+              "en": "Header drawer"
+            }
+          },
+          {
+            "value": "slideout",
+            "label": {
+              "en": "Slideout"
+            }
+          },
+          {
+            "value": "modal",
+            "label": {
+              "en": "Modal (todo)"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_search_term",
+        "label": {
+          "en": "Show search term"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_results_count",
+        "label": {
+          "en": "Show results count"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+

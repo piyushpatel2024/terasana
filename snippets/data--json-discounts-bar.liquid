@@ -1,0 +1,52 @@
+{% comment %}
+    Automatic discounts must be configured first as regular shopify discounts
+    and the added to the frontend via customizer.
+    Settings configured  @ theme_settings/cart in customizer.
+{% endcomment %}
+{% capture automatic_discount_settings %}
+    {
+        "is_enabled": {{- settings.cart_automatic_discounts_enabled | json -}},
+        "amount_to_next_discount": 0,
+        "next_discount": "free_shipping",
+        "current_discount": "none",
+        "none" : {
+            "name": "Buy more, Save more!"
+        },
+        "free_shipping": {
+          "is_enabled": "{{- settings.cart_free_shipping_enabled  -}}",
+          "threshold": {{- settings.cart_free_shipping_threshold | json -}},
+          "type": {{- settings.cart_free_shipping_type | json -}},
+          "amount": {{- settings.cart_free_shipping_amount | json -}},
+          "name": {{- settings.cart_free_shipping_name | json -}},
+          "earned": false,
+          "status": "not_earned",
+          "msg": {
+              "earned": {{- settings.cart_free_shipping_earned | json -}},
+              "to_earn": {{- settings.cart_free_shipping_not_earned | json -}}
+          }
+        },
+        "first_discount":{
+          "is_enabled": {{- settings.cart_first_percent_off_enabled | json -}},
+          "code": {{- settings.cart_first_discount_code | json -}},
+          "threshold": {{- settings.cart_first_discount_threshold | json -}},
+          "type": {{- settings.cart_first_discount_type | json -}},
+          "amount": {{- settings.cart_first_discount_amount | json -}},
+          "name": {{- settings.cart_first_discount_name | json -}},
+          "earned": false,
+          "status": "not_earned"
+        },
+        "second_discount":{
+          "is_enabled": {{- settings.cart_second_percent_off_enabled | json -}},
+          "code": {{- settings.cart_second_discount_code | json -}},
+          "threshold": {{- settings.cart_second_discount_threshold | json -}},
+          "type": {{- settings.cart_second_discount_type | json -}},
+          "amount": {{- settings.cart_second_discount_amount | json -}},
+          "name": {{- settings.cart_second_discount_name | json -}},
+          "earned": false,
+          "status": "not_earned"
+        },
+        "complete": {
+          "name": "Excellent! you are saving "
+        }
+    }
+{% endcapture %}

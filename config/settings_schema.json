@@ -1,0 +1,782 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "VueDebut",
+    "theme_author": "Shopify\/CreateTribe",
+    "theme_version": "0.6",
+    "theme_documentation_url": "https:\/\/createtribe.com\/",
+    "theme_support_url": "https:\/\/createtribe.com\/",
+    "theme_packaged_with": "@shopify\/slate-tools@1.0.0-beta.18"
+  },
+  {
+    "name": {
+      "en": "Brand"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Base brand colors"
+        }
+      },
+      {
+        "type": "color",
+        "id": "brand_color_light",
+        "label": {
+          "en": "Light color"
+        },
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "brand_color_light_alt",
+        "label": {
+          "en": "Light Alt color"
+        },
+        "default": "#B5B1AB"
+      },
+      {
+        "type": "color",
+        "id": "brand_color_dark",
+        "label": {
+          "en": "Dark color"
+        },
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "brand_color_dark_alt",
+        "label": {
+          "en": "Dark alt"
+        },
+        "default": "#8031A8"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Active Theme"
+        }
+      },
+      {
+        "type": "select",
+        "id": "active_theme",
+        "label": {
+          "en": "Global Base theme"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Featured Collection"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Featured collection"
+        }
+      },
+      {
+        "type": "collection",
+        "id": "featured_theme",
+        "label": {
+          "en": "Theme"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Layout"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Global Layout"
+        }
+      },
+      {
+        "type": "number",
+        "id": "global_max_width",
+        "label": {
+          "en": "Body max width"
+        },
+        "default": 1440
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Home"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Layout Sections"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_background",
+        "label": {
+          "en": "Enable background section"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_index",
+        "label": {
+          "en": "Enable index component"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal",
+        "label": {
+          "en": "Enable modal component"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_slideout",
+        "label": {
+          "en": "Enable slideout component"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_drawer",
+        "label": {
+          "en": "Enable drawer component"
+        },
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Typography",
+      "es": "Tipografía"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Headings",
+          "es": "Títulos"
+        }
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": {
+          "en": "Font",
+          "es": "Fuente"
+        },
+        "default": "work_sans_n6"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Buttons",
+          "es": "Botones"
+        }
+      },
+      {
+        "type": "font_picker",
+        "id": "type_button_font",
+        "label": {
+          "en": "Font",
+          "es": "Fuente"
+        },
+        "default": "work_sans_n6"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Body text",
+          "es": "Texto del cuerpo"
+        }
+      },
+      {
+        "type": "font_picker",
+        "id": "type_base_font",
+        "label": {
+          "en": "Font",
+          "es": "Fuente"
+        },
+        "default": "work_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "label": {
+          "en": "Base size",
+          "es": "Tamaño de base"
+        },
+        "default": 12,
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "unit": {
+          "en": "px",
+          "es": "px"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "type_bold_product_titles",
+        "label": {
+          "en": "Bold product titles",
+          "es": "Títulos de productos en negrita"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Promo Modal"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Discount"
+        }
+      },
+      {
+        "type": "text",
+        "id": "promo_discount_code",
+        "label": {
+          "en": "Discount Code"
+        },
+        "default": "FIRST20OFF",
+        "info": {
+          "en": "i.e FIRST20OFF. Make sure it exists."
+        }
+      }
+    ]
+  },
+  {
+    "name": "Discounts & Shipping",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_savings_enabled",
+        "label": "Display total savings bar if applicable.",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Automatic Cart Discounts"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_automatic_discounts_enabled",
+        "label": "Enable automatic discounts",
+        "info": "Enabled the whole module. Individual settings bellow",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enabled",
+        "label": "Enable and display amount to free shipping discount",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_first_percent_off_enabled",
+        "label": "Enable 1st discount option",
+        "info": "1st discount options configured bellow",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_second_percent_off_enabled",
+        "label": "Enable 2nd discount option",
+        "info": "2nd discount options configured bellow",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_name",
+        "default": "Free Shipping",
+        "label": "Free shipping name",
+        "info": "Shipping rule name displayed in the cart"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_earned",
+        "default": "Congrats, you've unlocked free shipping!",
+        "label": "Free shipping earned msg",
+        "info": "Message to show on the notification when the order meets the shipping discount"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_not_earned",
+        "default": "to unlock free shipping!",
+        "label": "Free shipping not earned message",
+        "info": "Message to show on the notification when the order doesn't yet meet the shipping discount"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_threshold",
+        "default": "30",
+        "label": "Order total threshold to get free shipping option. ie. 30",
+        "info": "Must match a shipping rule defined in the shipping settings"
+      },
+      {
+        "type": "select",
+        "id": "cart_free_shipping_type",
+        "options": [
+          {
+            "value": "percent",
+            "label": "Percent"
+          },
+          {
+            "value": "amount",
+            "label": "Amount"
+          }
+        ],
+        "default": "amount",
+        "label": "Discount type (saving)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount",
+        "default": "5",
+        "label": "Amount or Percent saved by this discount",
+        "info": "Must match the type defined above. i.e 5 for (5%) or 5 for $5"
+      },
+      {
+        "type": "text",
+        "id": "cart_first_discount_code",
+        "default": "10POFF50",
+        "label": "1st discount code",
+        "info": "Must match an active discount code"
+      },
+      {
+        "type": "text",
+        "id": "cart_first_discount_threshold",
+        "default": "50",
+        "label": "$ amount that triggers the discount",
+        "info": "Cart total amount that triggers the 1st discount"
+      },
+      {
+        "type": "select",
+        "id": "cart_first_discount_type",
+        "options": [
+          {
+            "value": "percent",
+            "label": "Percent"
+          },
+          {
+            "value": "amount",
+            "label": "Amount"
+          }
+        ],
+        "default": "percent",
+        "label": "Discount type (saving)"
+      },
+      {
+        "type": "text",
+        "id": "cart_first_discount_amount",
+        "default": "10",
+        "label": "Amount or Percent saved by this discount",
+        "info": "Must match the type defined above. i.e 10 for (10%) or 10 for $10"
+      },
+      {
+        "type": "text",
+        "id": "cart_first_discount_name",
+        "default": "10% Off",
+        "label": "1st discount name",
+        "info": "Discount name displayed in the cart"
+      },
+      {
+        "type": "text",
+        "id": "cart_second_discount_code",
+        "default": "20POFF80",
+        "label": "2nd discount code",
+        "info": "Must match an active discount code i.e 20POFF80"
+      },
+      {
+        "type": "text",
+        "id": "cart_second_discount_threshold",
+        "label": "$ amount that triggers the discount",
+        "default": "80",
+        "info": "Cart total amount that triggers the 2nd discount"
+      },
+      {
+        "type": "select",
+        "id": "cart_second_discount_type",
+        "options": [
+          {
+            "value": "percent",
+            "label": "Percent"
+          },
+          {
+            "value": "amount",
+            "label": "Amount"
+          }
+        ],
+        "default": "percent",
+        "label": "Discount type (saving) "
+      },
+      {
+        "type": "text",
+        "id": "cart_second_discount_amount",
+        "default": "20",
+        "label": "Amount or Percent saved by this discount",
+        "info": "Must match the type defined above. i.e 10 for (20%) or 20 for $20"
+      },
+      {
+        "type": "text",
+        "id": "cart_second_discount_name",
+        "default": "20% Off",
+        "label": "2nd discount name",
+        "info": "Discount name displayed in the cart "
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Social media",
+      "es": "Redes sociales"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Social sharing image",
+          "es": "Imagen de redes sociales"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": {
+          "en": "Image",
+          "es": "Imagen"
+        },
+        "info": {
+          "en": "Shown when sharing a link on social media. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/troubleshooting\/showing-social-media-thumbnail-images\/) about image thumbnails.",
+          "es": "Aparece cuando se comparte un enlace en una red social. [Más información](https:\/\/help.shopify.com\/manual\/using-themes\/troubleshooting\/showing-social-media-thumbnail-images\/) acerca de las miniaturas"
+        }
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Social sharing options",
+          "es": "Opciones para compartir en redes sociales"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": {
+          "en": "Share on Facebook",
+          "es": "Compartir en Facebook"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": {
+          "en": "Tweet on Twitter",
+          "es": "Tuitear en Twitter"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": {
+          "en": "Pin on Pinterest",
+          "es": "Pinear en Pinterest"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Social accounts",
+          "es": "Cuentas de redes sociales"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": {
+          "en": "Twitter",
+          "es": "Twitter"
+        },
+        "info": {
+          "en": "https:\/\/twitter.com\/shopify",
+          "es": "https:\/\/twitter.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": {
+          "en": "Facebook",
+          "es": "Facebook"
+        },
+        "info": {
+          "en": "https:\/\/facebook.com\/shopify",
+          "es": "https:\/\/www.facebook.com\/ShopifyES\/"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": {
+          "en": "Pinterest",
+          "es": "Pinterest"
+        },
+        "info": {
+          "en": "https:\/\/pinterest.com\/shopify",
+          "es": "https:\/\/pinterest.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": {
+          "en": "Instagram",
+          "es": "Instagram"
+        },
+        "info": {
+          "en": "http:\/\/instagram.com\/shopify",
+          "es": "http:\/\/instagram.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": {
+          "en": "Tumblr",
+          "es": "Tumblr"
+        },
+        "info": {
+          "en": "http:\/\/shopify.tumblr.com",
+          "es": "http:\/\/shopify.tumblr.com"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": {
+          "en": "Snapchat",
+          "es": "Snapchat"
+        },
+        "info": {
+          "en": "https:\/\/www.snapchat.com\/add\/shopify",
+          "es": "https:\/\/www.snapchat.com\/add\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": {
+          "en": "YouTube",
+          "es": "Youtube"
+        },
+        "info": {
+          "en": "https:\/\/www.youtube.com\/shopify",
+          "es": "https:\/\/www.youtube.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": {
+          "en": "Vimeo",
+          "es": "Vimeo"
+        },
+        "info": {
+          "en": "https:\/\/vimeo.com\/shopify",
+          "es": "https:\/\/vimeo.com\/shopify"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Favicon",
+      "es": "Favicon"
+    },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": {
+          "en": "Favicon image",
+          "es": "Imagen de favicon"
+        },
+        "info": {
+          "en": "Will be scaled down to 32 x 32px",
+          "es": "Se reducirá a 32 x 32px"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Modal"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Modal Settings"
+        }
+      },
+      {
+        "type": "select",
+        "id": "modal_theme",
+        "label": {
+          "en": "Modal color theme"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "dark",
+            "label": {
+              "en": "dark"
+            }
+          },
+          {
+            "value": "light",
+            "label": {
+              "en": "light"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "dark-alt"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "light-alt"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Modal Newsletter"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal_newsletter",
+        "label": {
+          "en": "Use Newsletter Modal"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "modal_newsletter_text_title",
+        "label": {
+          "en": "Modal Title"
+        },
+        "default": "Don't miss a beat!"
+      },
+      {
+        "type": "richtext",
+        "id": "modal_newsletter_text_body",
+        "label": {
+          "en": "Modal Body Text"
+        },
+        "default": "<p>Subscribe to the newsletter<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "modal_newsletter_text_button",
+        "label": {
+          "en": "Modal Button Text"
+        },
+        "default": "SUBSCRIBE NOW"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Modal Promo"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal_promo",
+        "label": {
+          "en": "Use Promo Modal"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "modal_promo_text_title",
+        "label": {
+          "en": "Modal Title"
+        },
+        "default": "Be rewarded"
+      },
+      {
+        "type": "richtext",
+        "id": "modal_promo_text_body",
+        "label": {
+          "en": "Modal Body Text"
+        },
+        "default": "<p>Sign up now and receive 20% off your next order<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "modal_promo_text_button",
+        "label": {
+          "en": "Modal Button Text"
+        },
+        "default": "GRAB MY CODE"
+      }
+    ]
+  }
+]

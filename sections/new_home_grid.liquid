@@ -1,0 +1,77 @@
+<div class="main_home_grid">
+  <div class="page-width">
+    <div class="content_grid">
+      {% if section.settings.heading != blank %}
+      <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+      <p>{{ section.settings.description }}</p>
+      {% endif %}
+      <div class="small_images">
+        {% for block in section.blocks %}
+        {% if block.settings.img_id != blank %}
+        <div class="img_wrap">
+          <img src="{{ block.settings.img_id | img_url : '90x91' }}" alt="{{ block.settings.img_id.alt }}">
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "new_home_grid",
+	"max_blocks":6,
+    "settings": [
+		{
+			"type":"text",
+			"id":"heading",
+			"label":"Heading"
+		},
+		{
+			"type":"text",
+			"id":"description",
+			"label":"Description"
+		}
+	],
+	"blocks":[{
+		"name":"Image",
+		"type":"image",
+		"settings":[
+			{
+                "type":"image_picker",
+                "id":"img_id",
+                "label":"Image"
+            }
+		]
+	}],
+    "presets": [
+      {
+        "name": {
+          "en": "New Grid"
+        },
+        "category": {
+          "en": "List"
+        }
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+ 
+
+
+
+
+
+
+
+

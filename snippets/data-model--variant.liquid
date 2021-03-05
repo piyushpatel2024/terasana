@@ -1,0 +1,147 @@
+{%- comment -%}
+    -------------------------
+    The Variant Object
+    @see: https://help.shopify.com/en/themes/liquid/objects/variant
+    -------------------------
+    variant.available
+    variant.barcode
+    variant.compare_at_price
+    variant.id
+    variant.image
+    variant.incoming
+    variant.inventory_management
+    variant.inventory_policy
+    variant.inventory_quantity
+    variant.next_incoming_date
+    variant.option1
+    variant.option2
+    variant.option3
+    variant.price
+    variant.requires_shipping
+    variant.selected
+    variant.sku
+    variant.taxable
+    variant.title
+    variant.url
+    variant.weight
+    variant.weight_unit
+    variant.weight_in_unit
+{%- endcomment -%}
+
+{%- assign vdm_available = variant.available | json -%}
+{%- assign vdm_compare_at_price = variant.compare_at_price | json -%}
+{%- assign vdm_barcode = variant.barcode | json -%}
+{%- assign vdm_id = variant.id | json -%}
+{%- assign vdm_image = variant.image | json -%}
+{%- assign vdm_incoming = variant.incoming | json -%}
+{%- assign vdm_inventory_management = variant.inventory_management -%}
+{%- assign vdm_inventory_policy = variant.inventory_policy | json -%}
+{%- assign vdm_inventory_quantity = variant.inventory_quantity | json -%}
+{%- assign vdm_next_incoming_today_date = "now" | date: "%Y-%m-%d" | json -%}
+{%- assign vdm_next_incoming_date = variant.next_incoming_date | date: "%Y-%m-%d" | json -%}
+{%- assign vdm_option1 = variant.option1 | json -%}
+{%- assign vdm_option2 = variant.option2 | json -%}
+{%- assign vdm_option3 = variant.option3 | json -%}
+{%- assign vdm_price = variant.price | json -%}
+{%- assign vdm_requires_shipping = variant.requires_shipping | json -%}
+{%- assign vdm_selected = variant.selected | json -%}
+{%- assign vdm_sku = variant.sku | json -%}
+{%- assign vdm_taxable = variant.taxable | json -%}
+{%- assign vdm_title = variant.title | json -%}
+{%- assign vdm_url = variant.url | json -%}
+{%- assign vdm_weight = variant.weight | json -%}
+{%- assign vdm_weight_unit = variant.weight_unit | json -%}
+{%- assign vdm_weight_in_unit = variant.weight_in_unit | json -%}
+
+
+{% comment %} VARIANT METAFIELDS {% endcomment %}
+{%- capture pdm_variant_status_metafields %}
+    {%- if variant.metafields.pdp_status.size > 0 -%}
+        {%- for field in variant.metafields.pdp_status -%}
+            {%- assign meta = field -%}
+            {% capture metaItem %}"{{ meta | first }}" : "{{ meta | last }}"{% endcapture %}
+            {%- if forloop.length == 1 -%}
+                { {{ metaItem }} }
+            {%- else -%}
+                {%- if forloop.first == true -%}
+                    { {{ metaItem }} ,
+                    {%- elsif forloop.last == true -%}
+                    {{ metaItem }} }
+                {%- else -%}
+                    {{ metaItem }} ,
+                {%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- else -%}
+        {}
+    {%- endif -%}
+{%- endcapture -%}
+
+
+
+{% comment %} backOrderThreshold Threshold Date (based on incoming date) {% endcomment %}
+
+{% assign default_days = 14 %}
+{% comment %} 2 weeks default {% endcomment %}
+{% if variant.next_incoming_date %}
+    {% if variant.metafields.pdp_status.preOrBackorder == 'preOrder' or variant.metafields.pdp_status.preOrBackorder == 'backOrder' %}
+
+        {% if variant.metafields.pdp_status.daysFromNextIncoming %}
+            {% assign days = variant.metafields.pdp_status.daysFromNextIncoming | times: 86400 %}
+        {% else %}
+            {% assign days = default_days | times: 86400 %}
+        {% endif %}
+
+        {% capture vdm_preBackorderPurchasableDate %}
+            {{ variant.next_incoming_date | date: "%s" | minus: days | date: "%Y-%m-%d" | json }}
+        {% endcapture %}
+
+    {% else %}
+        {% capture vdm_preBackorderPurchasableDate %}null{% endcapture %}
+    {% endif %}
+{% else %}
+    {% capture vdm_preBackorderPurchasableDate %}null{% endcapture %}
+{% endif %}
+
+
+{% comment %} available_overselling {% endcomment %}
+{% capture vdm_available_overselling %}
+ {% if variant.available and variant.inventory_policy == 'continue' %}
+    true
+  {% else %}
+    false
+ {% endif %}
+{% endcapture %}
+
+{% comment %} vdm_purchasable {% endcomment %}
+{% capture vdm_purchasable %}
+ {% if vdm_next_incoming_today_date > vdm_preBackorderPurchasableDate %}
+    true
+  {% else %}
+    false
+ {% endif %}
+{% endcapture %}
+
+
+{% comment %} pdp_v_swash fields {% endcomment %}
+{%- capture pdm_v_swash_metafields %}
+  {%- if variant.metafields.pdp_v_swash.size > 0 -%}
+      {%- for field in variant.metafields.pdp_v_swash -%}
+          {%- assign meta = field -%}
+          {% capture swash_meta_item %}"{{ meta | first }}" : "{{ meta | last }}"{% endcapture %}
+          {%- if forloop.length == 1 -%}
+              { {{swash_meta_item}} }
+          {% else %}
+              {%- if forloop.first == true -%}
+                  { {{swash_meta_item}} ,
+                  {%- elsif forloop.last == true -%}
+                  {{swash_meta_item}} }
+              {%- else -%}
+                  {{swash_meta_item}} ,
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- else -%}
+        {}
+  {%- endif -%}
+{%- endcapture -%}

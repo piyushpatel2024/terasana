@@ -1,0 +1,23 @@
+{%- capture col_product_ids -%}
+  {%- if collection.products -%}
+    {%- for product in collection.products -%}
+      {%- if forloop.length == 1 -%}
+        [ {{product.id}} ]
+      {%- else -%}
+        {%- if forloop.first -%} [ {{product.id}}, {%- endif -%}
+        {%- if forloop.last -%}
+          {{product.id}} ]
+        {%- else -%}
+          {{product.id}}, 
+        {%- endif -%}
+      {%- endif -%}    
+    {%- endfor -%}
+  {%- else -%}
+    []
+  {%- endif -%}
+{%- endcapture -%}
+
+{% comment %} 
+{% paginate collection.products by 1000 %}
+{% endpaginate %}
+ {% endcomment %}

@@ -1,0 +1,240 @@
+{%- comment -%}
+    The Product Object
+        product.available
+        product.collections
+        product.compare_at_price_max
+        product.compare_at_price_min
+        product.compare_at_price_varies
+        product.content
+        product.description
+        product.featured_image
+        product.first_available_variant
+        product.handle
+        product.has_only_default_variant
+        product.id
+        product.images
+        product.options
+        product.options_with_values
+        product.price
+        product.price_max
+        product.price_min
+        product.price_varies
+        product.selected_variant
+        product.selected_or_first_available_variant
+        product.tags
+        product.template_suffix
+        product.title
+        product.type
+        product.url
+        product.variants
+        product.vendor
+{%- endcomment -%}
+{%- assign pdm_available = product.available -%}
+{% comment %}
+    PRODUCT Collections Array
+    ["All", "Shirts"]..
+{% endcomment %}
+{%- capture pdm_collections %}
+    {%- for c in product.collections -%}
+        {%- if forloop.length == 1 -%}
+            ["{{ c.title }}"]
+        {% else %}
+            {%- if forloop.first == true -%}
+                ["{{ c.title }}",
+                {%- elsif forloop.last == true -%}
+                "{{ c.title }}"]
+            {%- else -%}
+                "{{ c.title }}",
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endcapture -%}
+
+{% if product.images.size > 0 %}
+{% assign pdm_featured_image = produt.featured_image | product_img_url: 'master' %}
+{% else %}
+{% assign pdm_featured_image = "" %}
+{% endif %}
+
+{%- assign pdm_compare_at_price_max = product.compare_at_price_max -%}
+{%- assign pdm_compare_at_price_min = product.compare_at_price_min -%}
+{%- assign pdm_compare_at_price_varies = product.compare_at_price_varies -%}
+{% capture pdm_description %}{{ product.description }}{% endcapture %}
+
+{%- assign pdm_first_available_variant = product.first_available_variant | json -%}
+{%- assign pdm_handle = product.handle -%}
+{%- assign pdm_has_only_default_variant = product.has_only_default_variant | default: false | json -%}
+{%- assign pdm_images = product.images | json -%}
+{% assign pdm_parent_product_id = 0 %}
+{% comment %}
+    PRODUCT images_ibj
+    [{src: 'http...', alt: '..'},{}]
+{% endcomment %}
+{%- capture pdm_images_obj %}
+    {% if product.images %}
+        {% if product.images.size > 0 %}
+            {%- for image in product.images -%}
+                {%- assign alt = image["alt"] | json -%}
+                {%- assign aspect_ratio = image["aspect_ratio"] | json -%}
+                {%- assign attached_to_variant = image["attached_to_variant?"] | json -%}
+                {%- assign height = image["height"] | json -%}
+                {%- assign id = image["id"] | json -%}
+                {%- assign product_id = image["product_id"] | json -%}
+                {%- if pdm_parent_product_id == 0 %}{%- assign pdm_parent_product_id = product_id | times: 1 | json -%}{% endif %}
+                {%- assign position = image["position"] | json -%}
+                {%- assign src = image["src"] | json -%}
+                {%- assign variants = image["variants"] | json -%}
+                {%- assign width = image["width"] | json -%}
+                {% capture image_item -%}
+                    { "alt": {{ alt }}, "aspect_ratio": {{ aspect_ratio }}, "attached_to_variant": {{ attached_to_variant }}, "height": {{ height }}, "id": {{ id }}, "product_id": {{ product_id }},
+                    "position": {{ position }}, "src": {{ src }}, "variants": {{ variants }}, "width": {{ width }} }
+                {%- endcapture -%}
+                {%- if forloop.length == 1 -%}
+                    [ {{ image_item }} ]
+                {%- else -%}
+                    {%- if forloop.first == true -%}
+                        [ {{ image_item }},
+                        {%- elsif forloop.last == true -%}
+                        {{ image_item }} ]
+                    {%- else -%}
+                        {{ image_item }},
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {% else %}
+        []
+        {% endif %}
+    {% else %}
+    []
+    {% endif %}
+{%- endcapture -%}
+{%- assign pdm_options = product.options | json -%}
+{%- assign pdm_options_with_values = product.options_with_values | json -%}
+{%- assign pdm_price = product.price -%}
+{%- assign pdm_price_max = product.price_max -%}
+{%- assign pdm_price_min = product.price_min -%}
+{%- assign pdm_price_varies = product.price_varies -%}
+{%- assign pdm_id = pdm_parent_product_id | json -%}
+{%- assign pdm_tags = product.tags | json -%}
+{%- assign pdm_template_suffix = product.template_suffix -%}
+{%- assign pdm_title = product.title | escape -%}
+{%- assign pdm_type = product.type -%}
+{%- assign pdm_url = product.url -%}
+{%- assign pdm_vendor = product.vendor -%}
+{% comment %}
+    {%- assign pdm_selected_variant = product.selected_variant | json -%}
+    {%- assign pdm_current_variant = product.selected_or_first_available_variant | json -%}
+    Enhanced selected variant with inventory data.
+{% endcomment %}
+{%- capture pdm_variants %}
+    {%- for variant in product.variants -%}
+        {%- if variant.id == product.selected_variant.id -%}
+            {% capture pdm_selected_variant %}
+                {% include 'data-json--variant' %}
+            {% endcapture %}
+        {% endif %}
+        {%- if variant.id == product.selected_or_first_available_variant.id -%}
+            {% capture pdm_current_variant %}
+                {% include 'data-json--variant' %}
+            {% endcapture %}
+        {% endif %}
+        {%- if forloop.length == 1 -%}
+            [ {% include 'data-json--variant' %} ]
+        {% else %}
+            {%- if forloop.first == true -%}
+                [ {% include 'data-json--variant' %},
+            {%- elsif forloop.last == true -%}
+                {% include 'data-json--variant' %} ]
+            {%- else -%}
+                {% include 'data-json--variant' %},
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endcapture -%}
+
+{%- if pdm_current_variant -%}
+{%- else -%}
+    {%- assign pdm_current_variant = pdm_first_available_variant -%}
+{%- endif -%}
+
+{% comment %}
+    VARIANTS INVENTORY
+    [{"variantId"}: {available:true,..},...]
+{% endcomment %}
+{%- capture pdm_variants_inventory %}
+    {% assign pdm_total_quantity = 0 %}
+    {%- for variant in product.variants -%}
+        {% assign pdm_total_quantity = pdm_total_quantity | plus: variant.inventory_quantity %}
+        {%- if forloop.length == 1 -%}
+            {"{{variant.id}}":{{ variant.inventory_quantity }}}
+        {% else %}
+            {%- if forloop.first == true -%}
+                {"{{variant.id}}":{{ variant.inventory_quantity }},
+                {%- elsif forloop.last == true -%}
+                "{{variant.id}}":{{ variant.inventory_quantity }}}
+            {%- else -%}
+                "{{variant.id}}":{{ variant.inventory_quantity }},
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endcapture -%}
+
+{% comment %} VARIANT METAFIELDS [TODO: Remove as these are now at the variant-level] {% endcomment %}
+{%- capture pdm_variants_metafields %}
+    {%- for variant in product.variants -%}
+        {%- capture v_metafields %}
+            {%- if variant.metafields.pdp_v_swash.size > 0 -%}
+                {%- for field in variant.metafields.pdp_v_swash -%}
+                    {%- assign meta = field -%}
+                    {%- if forloop.length == 1 -%}
+                        { "{{ meta | first }}" : "{{ meta | last }}" }
+                    {%- else -%}
+                        {%- if forloop.first == true -%}
+                            { "{{ meta | first }}" : "{{ meta | last }}",
+                            {%- elsif forloop.last == true -%}
+                            "{{ meta | first }}" : "{{ meta | last }}" }
+                        {%- else -%}
+                            "{{ meta | first }}" : "{{ meta | last }}",
+                        {%- endif -%}
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- else -%}
+                {}
+            {%- endif -%}
+        {% endcapture %}
+        {%- if forloop.length == 1 -%}
+            "{{variant.id}}":{{ v_metafields }}
+        {% else %}
+            {%- if forloop.first == true -%}
+                "{{variant.id}}":{{ v_metafields }},
+            {%- elsif forloop.last == true -%}
+                "{{variant.id}}":{{ v_metafields }}
+            {%- else -%}
+                "{{variant.id}}":{{ v_metafields }},
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endcapture -%}
+
+{% comment %} BLOCK METAFIELDS {% endcomment %}
+{%- capture pdm_product_block_metafields %}
+    {%- if product.metafields.pdp_blk.size > 0 -%}
+        {%- for field in product.metafields.pdp_blk -%}
+            {%- assign meta = field -%}
+            {%- if forloop.length == 1 -%}
+                { "{{ meta | first }}" : {{ meta | last | json }} }
+            {% else %}
+                {%- if forloop.first == true -%}
+                    { "{{ meta | first }}" : {{ meta | last | json }},
+                    {%- elsif forloop.last == true -%}
+                    "{{ meta | first }}" : {{ meta | last | json }} }
+                {%- else -%}
+                    "{{ meta | first }}" : {{ meta | last | json }},
+                {%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- else -%}
+         {}
+    {%- endif -%}
+{%- endcapture -%}
+

@@ -1,0 +1,76 @@
+{%- capture color_btn_primary_focus -%}
+{%- assign color = settings.color_button  -%}
+{%- assign color_brightness = color | color_brightness -%}
+  {%- if color_brightness <= 26 -%}
+    {{- color | color_lighten: 25 -}}
+    {%- elsif color_brightness <= 64 -%}
+    {{- color | color_lighten: 15 -}}
+  {%- else -%}
+    {{- color | color_darken: 10 -}}
+  {%- endif -%}
+{% endcapture %}
+
+{%- assign color_light_contrast = '#ffffff' -%}
+{%- assign color_dark_contrast = '#000000' -%}
+
+{%- comment -%}
+    Color - Primary Accent Text
+{%- endcomment -%}
+{%- assign color_r = color_primary_accent | color_extract: 'red' -%}
+{%- assign color_g = color_primary_accent | color_extract: 'green' -%}
+{%- assign color_b = color_primary_accent | color_extract: 'blue' -%}
+{%- assign color_y_r = color_r | times: 0.299 -%}
+{%- assign color_y_g = color_g | times: 0.587 -%}
+{%- assign color_y_b = color_b | times: 0.114 -%}
+{%- assign color_y = color_y_r | plus: color_y_g | plus: color_y_b | divided_by: 255 -%}
+{%- if color_y >= 0.5 -%}
+    {%- assign color_primary_accent_text = color_light_contrast -%}
+{%- else -%}
+    {%- assign color_primary_accent_text = color_light_contrast -%}
+{%- endif -%}
+
+{%- comment -%}
+    Color - Overlay + Opacity
+{%- endcomment -%}
+{% assign chosen_opacity = settings.image_overlay_opacity | times: 1.00 | divided_by: 100 %}
+{% assign color_image_overlay_opacity = settings.color_image_overlay | color_modify: 'alpha', chosen_opacity %}
+{% assign body_max_width = settings.global_max_width | append: 'px' %}
+
+{%- comment -%}
+  Based on customizer settings 
+{%- endcomment -%}
+{%- comment -%} 
+  large: 1280 / 12 = 106.67 rem (1280) 
+{%- endcomment -%}
+{% assign large_em = settings.global_max_width | divided_by: settings.type_base_size %} 
+{%- comment -%} 
+  medium: 106.67 * .75 = 80rem (960px) 
+{%- endcomment -%}
+{% assign medium_em = large_em | times: 0.75 %}
+{%- comment -%} 
+  small: 768 / 12  = 64rem 
+{%- endcomment -%}
+{% assign small_em = '768' | divided_by: settings.type_base_size %}
+
+
+<style id="root-styles">
+:root {
+  font-size: {{ settings.type_base_size }}px !important;
+  --type-base-size: {{ settings.type_base_size }};
+  --type-header-font: {{ settings.type_header_font.family }} ,Helvetica ,Arial !important;
+  --type-base-font: {{ settings.type_base_font | font_face }};
+  --max-width-raw: {{settings.global_max_width}};
+  --max-width: {{settings.global_max_width}}px;
+  --bp-not-small-min-width-em: {{small_em}}em;
+  --bp-medium-min-width-em: {{medium_em}}em;
+  --bp-large-min-width-em: {{large_em}}em;
+  --mq-not-small: 'screen and (min-width: "{{small_em}}em")';
+  --mq-medium: 'screen and (min-width: "{{small_em}}em") and (max-width: "{{large_em}}em")';
+  --mq-large: 'screen and (min-width: "{{large_em}}em")';
+  --brand-color-light: {{ settings.brand_color_light }};
+  --brand-color-light-alt: {{ settings.brand_color_light_alt }};    
+  --brand-color-dark: {{ settings.brand_color_dark }};
+  --brand-color-dark-alt: {{ settings.brand_color_dark_alt }};
+}
+</style>
+

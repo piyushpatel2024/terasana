@@ -1,0 +1,12 @@
+{%- capture theme_col_img -%}{%- if collection.image != nil -%}{{- collection.image | img_url: 'master' -}}{%- else -%}{%- endif -%}{%- endcapture -%}
+
+{
+  "all_products_count": {{ collection.all_products_count | json }},
+  "description": {{ collection.description | json }},
+  "handle": {{ collection.handle | json }},
+  "id": {{ collection.id | json }},
+  "image": "{{ theme_col_img }}",
+  "products": [],
+  "title": {{ collection.title | json }},
+  "url": {{ collection.url | json }}
+}

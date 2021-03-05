@@ -1,0 +1,120 @@
+{% capture checkOutButtons %}
+  {% if additional_checkout_buttons %}
+    {{ content_for_additional_checkout_buttons }}
+  {% endif %}
+{% endcapture %}
+
+<aside
+  data-section-id="{{ section.id }}" 
+  data-section-type="layout-slideout"
+  data-vue-theme="light"
+  data-vue-extra-checkouts="{{ checkOutButtons | json | url_escape }}"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+
+  {% comment %} Sidebar / Minicar {% endcomment %}
+  <div class="pushbar_wrapper">
+    <div data-pushbar-id="theme-slideout" class="pushbar from_right">
+      <div id="vue-layout-slideout"></div>
+    </div>
+  </div>
+  
+</aside>
+
+<style>
+
+  
+</style>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Slideout"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "General"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "slideout_enabled",
+        "label": {
+          "en": "Enable slideout"
+        },
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "slideout_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Mini Cart"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "minicart_enabled",
+        "label": {
+          "en": "Mini cart enabled"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "minicart_title",
+        "label": {
+          "en": "Mini cart title"
+        },
+        "default": "YOUR BAG"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Search (WIP)"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "search_enabled",
+        "label": {
+          "en": "Search enabled"
+        },
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

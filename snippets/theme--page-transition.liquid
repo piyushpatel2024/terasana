@@ -1,0 +1,46 @@
+<div id="PageTransition">
+
+   {% comment %} Quotes {% endcomment %}
+  <div 
+    id="quote-container" 
+    style="display:none;"
+    class="animated fadeIn ease-in a1 d1">
+    <h1 id="quote-text">“ <br> ALWAYS BELIEVE <br> THAT THE <br> IMPOSSIBLE IS <br> ALWAYS <br> POSSIBLE.</h1>
+    <h6 id="quote-author">- Selena</h6>
+    
+    {% comment %} Loading symbol {% endcomment %}
+    <div id="loading-symbol">    
+
+      {% comment %} Squares {% endcomment %}
+      <svg width="107px" height="33px" viewBox="0 0 107 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="dots" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <rect id="one" fill="#000000" x="22" y="11" width="12" height="12">
+            <animate
+              attributeName="opacity"
+              dur="1s"
+              values="0;1;0"
+              repeatCount="indefinite" 
+              begin="0.1"/> 
+          </rect>
+          <rect id="two" fill="#000000" x="46" y="11" width="12" height="12">
+            <animate
+              attributeName="opacity"
+              dur="1s"
+              values="0;1;0"
+              repeatCount="indefinite" 
+              begin="0.2"/>
+          </rect>
+          <rect id="three" fill="#000000" x="70" y="11" width="12" height="12">
+            <animate
+              attributeName="opacity"
+              dur="1s"
+              values="0;1;0"
+              repeatCount="indefinite" 
+              begin="0.3"/>
+          </rect>
+        </g>
+      </svg>
+    </div>
+
+  </div>
+</div>

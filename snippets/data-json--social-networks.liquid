@@ -1,0 +1,80 @@
+{%- assign social_icons = false -%}
+
+{% if
+	settings.social_twitter_link != blank
+	or settings.social_facebook_link != blank
+	or settings.social_pinterest_link != blank
+	or settings.social_instagram_link != blank
+	or settings.social_tumblr_link != blank
+	or settings.social_snapchat_link != blank
+	or settings.social_youtube_link != blank
+	or settings.social_vimeo_link != blank
+	or template.name == 'article'
+	or template.name == 'blog'%}
+	{%- assign social_icons = true -%}
+{% endif %}
+
+
+{%- capture social_networks -%}
+{
+	"haveActiveNetworks": {{ social_icons | json }},
+	"networks": {
+		"instagram": {
+			"url": {{ 'https://instagram.com/' | append: settings.social_instagram_link | json }},
+      {% if settings.social_instagram_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+		},
+		"facebook": {
+			"url": {{ 'https://facebook.com/' | append: settings.social_facebook_link | json }},
+      {% if settings.social_facebook_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+		},
+		"twitter": {
+			"url": {{ 'https://twitter.com/' | append: settings.social_twitter_link | json }},
+      {% if settings.social_twitter_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+		},
+		"snapchat": {
+			"url": {{ 'https://snapchat.com/' | append: settings.social_snapchat_link | json }},
+      {% if settings.social_snapchat_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+		},
+		"youtube": {
+			"url": {{ 'https://youtube.com/' | append: settings.social_youtube_link | json }},
+      {% if settings.social_youtube_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+    },
+		"vimeo": {
+			"url": {{ 'https://vimeo.com/' | append: settings.social_vimeo_link | json }},
+      {% if settings.social_youtube_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+    },
+		"pinterest": {
+			"url": {{ 'https://pinterest.com/' | append: settings.socialpinterest_link | json }},
+      {% if settings.social_youtube_link != '' %}
+      "active": "true"
+      {% else %}
+      "active": "false"
+      {% endif %}
+    }
+	}
+}
+{%- endcapture -%}

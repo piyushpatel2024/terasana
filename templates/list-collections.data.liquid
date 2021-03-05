@@ -1,0 +1,21 @@
+{% comment %}
+  The contents of the lists-collections.liquid template can be found in /sections/lists-collections-section.liquid
+{% endcomment %}
+
+{% layout none %}
+{% capture all_collections %}
+  {% for collection in collections %}
+    {% capture colitem %}
+      "{{collection.handle}}": {% include 'data-json--collection-first-9' %}
+    {% endcapture %}
+    {%- if forloop.first -%} 
+      {
+    {%- endif -%}
+    {%- if forloop.last -%}
+        {{ colitem }} }
+    {%- else -%}
+      {{ colitem }},
+    {%- endif -%}
+  {% endfor %}
+{% endcapture %}  
+{ "collections": {{ all_collections }} }

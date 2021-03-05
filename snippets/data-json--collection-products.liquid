@@ -1,0 +1,29 @@
+{%- capture theme_col_img -%}{%- if collection.image != nil -%}{{- collection.image | img_url: 'master' -}}{%- else -%}{%- endif -%}{%- endcapture -%}
+
+{% if perPage != nil %}
+  {% assign perPage = 25 %}
+{% endif %}
+
+{%- if collection.products -%}
+  {% paginate collection.products by perPage %}
+    {%- capture page_products -%}
+      {{ collection.products | json }}
+    {%- endcapture -%}
+  {% endpaginate %}
+  {
+    "all_products_count": {{ collection.all_products_count | json }},
+    "description": {{ collection.description | json }},
+    "handle": {{ collection.handle | json }},
+    "products": {{ page_products | default: [] }},
+    "id": {{ collection.id | json }},
+    "image": "{{ theme_col_img }}",
+    "title": {{ collection.title | json }},
+    "url": {{ collection.url | json }}
+}
+{% else %}
+  {
+    "title": {{ collection.title | json }},
+    "handle": {{ collection.handle | json }},
+    "description": {{ collection.description | json }}
+  }
+{%- endif -%}

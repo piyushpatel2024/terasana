@@ -1,0 +1,48 @@
+{% assign mainLast = false %}
+
+{%- capture footerMenu -%}
+	{{- '{"footerMenu": [' -}}
+	{%- for link in linklists['footer'].links -%}
+		{%- if forloop.last -%}{% assign mainLast = true %}{%- endif -%}
+			{%- case link.levels -%}
+				{%- when 0 -%}
+					{"active":"false","title":"{{ link.title }}","links":"","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}"}{%- unless mainLast -%},{% endunless %}
+				{%- when 1 -%}
+					{"active":"false","title":"{{ link.title }}","url":"{{ link.url }}","levels":"{{ link.levels }}","handle":"{{ link.handle }}",
+					{{- '"links": [' -}}
+					{% for l in link.links %}
+						{"active":"false","title":"{{ l.title }}","url":"{{ l.url }}","levels":"{{ l.levels }}","handle":"{{ l.handle }}"}{%- unless forloop.last -%},{% endunless %}
+					{%- endfor -%}
+				]}
+				{%- unless mainLast -%},{% endunless %}
+			{%- endcase -%}
+		{%- endfor -%}
+	]}
+{%- endcapture -%}
+
+{% capture footer_newsletter_options %}
+  {
+  "enabled": {{ section.settings.footer_newsletter_enable | json }},
+  "title": {{ section.settings.footer_newsletter_heading | json }},
+  "body": {{ section.settings.footer_newsletter_subheading | json }}
+  }
+{% endcapture %}
+
+
+{% comment %} footerData {% endcomment %}
+{
+	"section": {
+		"id": "{{ section.id }}"
+	},
+	"settings": {
+    "collectionsNav": {
+      "enabled": {{ section.settings.enable_collections_nav_slider | json }}
+    },
+    "newsletter": {{- footer_newsletter_options -}},
+		"social": {
+      "enabled": {{ section.settings.enable_social_networks | json }}
+    },
+		"footerNav": {{- footerMenu -}},
+		"menu": "{{ section.settings.footer_linklist }}"
+	}
+}

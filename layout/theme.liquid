@@ -1,0 +1,181 @@
+<!doctype html>
+<!--
+@@@@@@@@\ @@@@@@@@\ @@@@@@@\  @@@@@@@@\  @@@@@@\   @@@@@@\  @@\   @@\  @@@@@@\
+\__@@  __|@@  _____|@@  __@@\ @@  _____|@@  __@@\ @@  __@@\ @@@\  @@ |@@  __@@\
+   @@ |   @@ |      @@ |  @@ |@@ |      @@ /  \__|@@ /  @@ |@@@@\ @@ |@@ /  @@ |
+   @@ |   @@@@@\    @@@@@@@  |@@@@@\    \@@@@@@\  @@@@@@@@ |@@ @@\@@ |@@@@@@@@ |
+   @@ |   @@  __|   @@  __@@< @@  __|    \____@@\ @@  __@@ |@@ \@@@@ |@@  __@@ |
+   @@ |   @@ |      @@ |  @@ |@@ |      @@\   @@ |@@ |  @@ |@@ |\@@@ |@@ |  @@ |
+   @@ |   @@@@@@@@\ @@ |  @@ |@@@@@@@@\ \@@@@@@  |@@ |  @@ |@@ | \@@ |@@ |  @@ |
+   \__|   \________|\__|  \__|\________| \______/ \__|  \__|\__|  \__|\__|  \__|
+by createtribe.com
+-->
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}">
+<!--<![endif]-->
+
+  <head>
+    <meta charset="utf-8" name="{{ page_title }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- include 'favicon' -%}
+
+    {%- if settings.favicon != blank -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {%- endif -%}
+
+    {% include 'SEOManager' %}
+   
+    {% comment %}
+      {%- capture seo_title -%}
+        {{ page_title }}
+        {%- if current_tags -%}
+          {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+        {%- endif -%}
+        {%- if current_page != 1 -%}
+          &ndash; {{ 'general.meta.page' | t: page: current_page }}
+        {%- endif -%}
+        {%- assign escaped_page_title = page_title | escape -%}
+        {%- unless escaped_page_title contains shop.name -%}
+          &ndash; {{ shop.name }}
+        {%- endunless -%}
+      {%- endcapture -%}
+
+      <title>{{ seo_title | strip }}</title>
+
+      {%- if page_description -%}
+        <meta name="description" content="{{ page_description | escape }}">
+      {%- endif -%}
+    {% endcomment %}
+
+
+    {% include 'theme--social-meta-tags' %}
+
+    {% comment %} Customizer css-related settings to scss variables  {% endcomment %}
+    {% include 'theme--fonts' %}
+    {% include 'theme--css-variables' %}
+    {% include 'script-tags', layout: 'theme' %}
+    {% include 'style-tags', layout: 'theme' %}
+   <link href="{{ 'timber' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+    {%- comment -%} Apps Style Overwrites sheets go here {%- endcomment -%}
+    {% include 'theme--3rd-party-styles' %}
+
+    {%- comment -%} Apps go here (Prefer snippet at the footer) {%- endcomment -%}
+    {% include 'theme--3rd-party-scripts-head' %}
+
+    {%- comment -%} Initial theme object {%- endcomment -%}
+    {% include 'theme--data-scripts' %}
+
+    {{ content_for_header }}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{ 'slick.css' | asset_url | stylesheet_tag }}
+    {{ 'slick.js'  | asset_url  | script_tag }}
+    {% include 'theme--no-script' %}
+
+  </head>
+
+  {%- comment -%} BODY{%- endcomment -%}
+  <body
+    id="{{ page_title | handle }}"
+    class="template-{{ template.name | handle }} template-{{ template | split: '.' | first }} {%- if page.handle -%} page-{{page.handle}} {%- endif -%}  with-image-background {% if template.suffix %}template-{{ template.suffix }}{% endif %}"
+    data-pushbar-open="false">
+
+    {% include 'theme--preloader' %}
+
+    {% comment %} Header {% endcomment %}
+    {% section 'layout--header' %}
+
+    {%- comment -%} Main Swup/PJAX container {%- endcomment -%}
+    <div id="PageContainer" class="page-container">
+      <main id="MainContent" role="main" class="transition-fade">
+        {%- comment -%}
+        Used to update theme.Store.dynamic after navigating to a
+        new page/link via swup @see: theme-swup-pjax.js
+        {%- endcomment -%}
+        <noscript id="theme-store-dynamic-data">
+          {{ themeDataDynamic }}
+        </noscript> 
+
+        {% if settings.enable_background %}
+          {% section 'layout--background' %}
+        {% endif %}
+
+        {{ content_for_layout }}
+      </main>
+
+      {% comment %} Footer {% endcomment %}
+      {% section 'layout--footer' %}
+
+      {% if settings.enable_slideout %}
+        {% section 'layout--slideout' %}
+      {% endif %}
+    </div>
+
+    {% include 'theme--page-transition' %}
+
+    {% if settings.enable_index %}
+      {% section 'layout--side-buttons' %}
+    {% endif %}
+
+
+    {% comment %}
+      {% if settings.enable_drawer %}
+        {% section 'layout--drawer' %}
+      {% endif %}
+    {% endcomment %}
+
+    {% if settings.enable_modal %}
+      {% section 'layout--modal' %}
+    {% endif %}
+
+
+    {%- comment -%} Apps go here (Preferred location for app) {%- endcomment -%}
+    {% include 'theme--3rd-party-scripts-footer' %}
+
+    {% if template contains 'product' %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {% endif %}
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script>
+      $(document).ready(function() {
+        setTimeout(function(){
+          $(".template-product .product__addtocart .button-container").after( "<p class='free_text'>*Free shipping and free returns with our 60 Day Satisfaction Guarantee</p>" );
+		}, 1000 );
+        function img_fun(){
+          if($('.page-index-grid .image-with-text-container img.aos-init').length >= 1){
+            var first_src = $('.page-index-grid .image-with-text-container img.aos-init').first().attr('src');
+            if(first_src.indexOf('_crop_center') > -1) {
+              $('.page-index-grid .image-with-text-container img.aos-init').each(function(index,value){
+                var get_src = $(value).attr('src');
+                var new_src = get_src.replace('_crop_center','');
+                $(this).attr('src',new_src);
+              });
+              setTimeout(function(){ 
+                $('.page-index-grid .image-with-text-container img.aos-init').each(function(index,value){
+                  var get_src = $(value).attr('src');
+                  var new_src = get_src.replace('_crop_center','');
+                  $(this).attr('src',new_src);
+                });
+              }, 1000);
+            }else{
+              setTimeout(function(){ 
+                img_fun();
+              }, 500);
+            }
+          }else{
+            setTimeout(function(){ 
+              img_fun();
+            }, 500);
+          }
+        }
+        img_fun();
+      });
+    </script>
+
+  </body>
+</html> 

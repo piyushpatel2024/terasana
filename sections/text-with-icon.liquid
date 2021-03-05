@@ -1,0 +1,59 @@
+{% schema %}
+  {
+    "name": "Text With Icon",
+    "class": "index-section",
+    "max_blocks": 20,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "We make skincare good for the body and good for the soul."
+      },
+      {
+          "type":"textarea",
+          "id":"sub_heading",
+          "label":"Sub Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": "Text With Icon",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Text With Icon",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

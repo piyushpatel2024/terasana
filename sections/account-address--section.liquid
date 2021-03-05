@@ -1,0 +1,94 @@
+{% form 'customer_address', customer.new_address %}
+  {%- capture account_form_data -%}
+    {
+      "id": null,
+      "data": {{ customer.new_address | format_address | json }},
+      "form_errors":[
+        {%- if form.errors -%}{%- for error in form.errors -%}
+          {%- if forloop.first != true %},{% endif -%}
+          {{ form.errors | default_errors | strip_html | json }}
+        {%- endfor -%}{%- endif -%}
+      ]
+    }
+  {%- endcapture -%}
+{% endform %}
+
+{% for address in customer.addresses %}
+  {% form 'customer_address', address %}
+    {%- capture account_form_data -%}
+      {{ account_form_data }},
+      {    
+        "addr": {
+          "html": {{ address | format_address | json }},
+          "data": {{ address | json }}
+        },
+        "default": {%- if address == customer.default_address -%}true{%- else -%}false{%- endif -%},
+        "form_errors":[
+          {%- if form.id.errors -%}{%- for error in form.id.errors -%}
+            {%- if forloop.first != true %},{% endif -%}
+            {{ form.id.errors | default_errors | strip_html | json }}
+          {%- endfor -%}{%- endif -%}
+        ]
+      }
+    {%- endcapture -%}
+  {% endform %}
+{% endfor %}
+
+{%- capture account_form_data -%}
+  [{{ account_form_data }}]
+{%- endcapture -%}
+
+<section
+  class="section-account-address" 
+  data-section-type="account-address"
+  data-section-id="{{ section.id }}" 
+  data-vue-settings="{{ section.settings | json | url_escape }}"
+  data-vue-form-data="{{ account_form_data | url_escape }}">
+  {%comment%}<div class="bg-yellow page-width">{{ account_settings }}</div>{%endcomment%}
+  {%comment%}<div class="bg-yellow page-width">{{ account_form_data }}</div>{%endcomment%}
+  <div id="vue-account-address"></div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Address Settings"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

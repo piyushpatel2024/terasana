@@ -1,0 +1,71 @@
+{%- comment -%}
+    The Product Object
+        product.available
+        product.collections
+        product.featured_image
+        product.handle
+        product.id
+        product.price
+        product.tags
+        product.title
+        product.type
+        product.url
+{%- endcomment -%}
+{%- assign pdm_available = product.available -%}
+{%- capture pdm_collections %}
+    {%- for c in product.collections -%}
+        {%- if forloop.length == 1 -%}
+            ["{{ c.title }}"]
+        {% else %}
+            {%- if forloop.first == true -%}
+                ["{{ c.title }}",
+                {%- elsif forloop.last == true -%}
+                "{{ c.title }}"]
+            {%- else -%}
+                "{{ c.title }}",
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture pdm_tags %}
+    {%- for t in product.tags -%}
+        {%- if forloop.length == 1 -%}
+            ["{{ t.title }}"]
+        {% else %}
+            {%- if forloop.first == true -%}
+                ["{{ t.title }}",
+                {%- elsif forloop.last == true -%}
+                "{{ t.title }}"]
+            {%- else -%}
+                "{{ t.title }}",
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endcapture -%}
+
+{% if product.images.size > 0 %}
+  {% assign pdm_featured_image = produt.featured_image | product_img_url: 'master' %}
+{% else %}
+  {% assign pdm_featured_image = "" %}
+{% endif %}
+{%- assign pdm_handle = product.handle -%}
+{%- assign pdm_price = product.price -%}
+{%- assign pdm_id = pdm_parent_product_id | json -%}
+{%- assign pdm_tags = product.tags | json -%}
+{%- assign pdm_title = product.title | escape -%}
+{%- assign pdm_type = product.type -%}
+{%- assign pdm_url = product.url -%}
+
+{
+  "available": {{ pdm_available | json }},
+  "collections": {{ pdm_collections | json }},
+  "tags": {{ pdm_tags | json }},
+  "featured_image": {{ pdm_featured_image | json }},
+  "handle": {{ pdm_handle | json }},
+  "price": {{ pdm_price | json }},
+  "id": {{ pdm_id | json }},
+  "title": {{ pdm_title | json }},
+  "url": {{ pdm_url | json }},
+  "type": {{ pdm_type | json }}
+}

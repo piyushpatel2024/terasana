@@ -1,0 +1,427 @@
+{% capture enhanced_collection %}
+  {% include 'data-json--collection-9' %}
+{% endcapture %}
+
+<section
+  data-section-id="{{ section.id }}"
+  data-section-type="collection"
+  data-vue-theme="light"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+
+  <div id="vue-collection"></div>
+
+  <div class="blocks">
+    {% for block in section.blocks %}
+    <section
+      id="block-{{ block.id }}"
+      class="collection-block page-width"
+      data-block-id="{{ block.id }}"
+      data-block-type="{{ block.type }}"
+      data-vue-handle="{{ collection.handle }}"
+      data-vue-theme="{{ block.settings.section_theme }}"
+      data-vue-collection="{{ enhanced_collection | url_escape }}"
+      data-vue-settings="{{ block.settings | json | url_escape }}"
+      {{ block.shopify_attributes }}>
+
+        {% case block.type %}
+          {% when 'block-collection-hero' %}
+            <div id="vue-{{block.type}}"></div>
+
+          {% when 'block-collection-grid' %}
+            <div id="vue-{{block.type}}"></div>
+        {% endcase %}
+
+    </section>
+    {% endfor %}
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Collection Settings"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section"
+      }
+    },
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme (todo)"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block-collection-grid",
+      "name": "Grid",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "section_theme",
+          "label": {
+            "en": "Color theme"
+          },
+          "default": "light",
+          "options": [
+            {
+              "value": "light",
+              "label": {
+                "en": "Light Background"
+              }
+            },
+            {
+              "value": "light-alt",
+              "label": {
+                "en": "Alt Light Background"
+              }
+            },
+            {
+              "value": "dark-alt",
+              "label": {
+                "en": "Alt Dark Background"
+              }
+            },
+            {
+              "value": "dark",
+              "label": {
+                "en": "Dark background"
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_items_ratio",
+          "label": {
+            "en": "Grid items ratio"
+          },
+          "default": "5x7",
+          "options": [
+            {
+              "value": "16x9",
+              "label": {
+                "en": "16x9"
+              }
+            },
+            {
+              "value": "1x1",
+              "label": {
+                "en": "1x1"
+              }
+            },
+            {
+              "value": "3x4",
+              "label": {
+                "en": "3x4"
+              }
+            },
+            {
+              "value": "4x3",
+              "label": {
+                "en": "4x3"
+              }
+            },
+            {
+              "value": "4x6",
+              "label": {
+                "en": "4x6"
+              }
+            },
+            {
+              "value": "5x7",
+              "label": {
+                "en": "5x7"
+              }
+            },
+            {
+              "value": "5x8",
+              "label": {
+                "en": "5x8"
+              }
+            },
+            {
+              "value": "6x4",
+              "label": {
+                "en": "6x4"
+              }
+            },
+            {
+              "value": "7x5",
+              "label": {
+                "en": "7x5"
+              }
+            },
+            {
+              "value": "8x5",
+              "label": {
+                "en": "8x5"
+              }
+            },
+            {
+              "value": "9x16",
+              "label": {
+                "en": "9x16"
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_col_gutter",
+          "label": {
+            "en": "Grid Cols Gutter"
+          },
+          "default": "medium",
+          "options": [
+            {
+              "value": "none",
+              "label": {
+                "en": "none"
+              }
+            },
+            {
+              "value": "small",
+              "label": {
+                "en": "Small"
+              }
+            },
+            {
+              "value": "medium",
+              "label": {
+                "en": "Medium"
+              }
+            },
+            {
+              "value": "large",
+              "label": {
+                "en": "Large"
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_row_gutter",
+          "label": {
+            "en": "Grid Rows Gutter"
+          },
+          "default": "medium",
+          "options": [
+            {
+              "value": "none",
+              "label": {
+                "en": "none"
+              }
+            },
+            {
+              "value": "small",
+              "label": {
+                "en": "Small"
+              }
+            },
+            {
+              "value": "medium",
+              "label": {
+                "en": "Medium"
+              }
+            },
+            {
+              "value": "large",
+              "label": {
+                "en": "Large"
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_per_row_small",
+          "label": {
+            "en": "Per row (small)"
+          },
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": {
+                "en": "1"
+              }
+            },
+            {
+              "value": "2",
+              "label": {
+                "en": "2"
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_per_row_medium",
+          "label": {
+            "en": "Per row (medium)"
+          },
+          "default": "2",
+          "options": [
+            {
+              "value": "1",
+              "label": {
+                "en": "1"
+              }
+            },
+            {
+              "value": "2",
+              "label": {
+                "en": "2"
+              }
+            },
+            {
+              "value": "3",
+              "label": {
+                "en": "3"
+              }
+            },
+            {
+              "value": "4",
+              "label": {
+                "en": "4"
+              }
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_per_row_large",
+          "label": {
+            "en": "Per row (large)"
+          },
+          "default": "3",
+          "options": [
+            {
+              "value": "1",
+              "label": {
+                "en": "1"
+              }
+            },
+            {
+              "value": "2",
+              "label": {
+                "en": "2"
+              }
+            },
+            {
+              "value": "3",
+              "label": {
+                "en": "3"
+              }
+            },
+            {
+              "value": "4",
+              "label": {
+                "en": "4"
+              }
+            },
+            {
+              "value": "5",
+              "label": {
+                "en": "5"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "block-collection-hero",
+      "name": "Hero Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "media_query",
+          "label": {
+            "en": "Block Media Query"
+          },
+          "default": "hide-none",
+          "options": [
+            {
+              "value": "hide-none",
+              "label": {
+                "en": "Show on Mobile and Desktop"
+              }
+            },
+            {
+              "value": "hide-desktop",
+              "label": {
+                "en": "Hide on Desktop"
+              }
+            },
+            {
+              "value": "hide-mobile",
+              "label": {
+                "en": "Hide on mobile"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text_title",
+          "label": {
+            "en": "Title"
+          }
+        },
+        {
+          "type": "text",
+          "id": "text_subtitle",
+          "label": {
+            "en": "subTitle"
+          }
+        },
+        {
+          "type": "text",
+          "id": "section_custom_classes",
+          "label": {
+            "en": "section custom classes"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

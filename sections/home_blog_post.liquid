@@ -1,0 +1,85 @@
+<div class="home_blog_post">
+  <div class="page-width">
+    <div class="content_grid">
+      {% if section.settings.heading != blank %}
+      <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+      <div class="product_grid">
+        {% for block in section.blocks %}
+        {% if block.settings.blog_id != blank %}
+        <div class="blog_col">
+          {% if block.settings.blog_image != blank %}
+          <div class="blog_image">
+            <img src="{{ block.settings.blog_image | img_url : '450x600' }}">
+          </div>
+          {% endif %}
+          {% if block.settings.blog_date != blank %}
+          <span>{{ block.settings.blog_date }}</span>
+          {% endif %}
+          {% if block.settings.blog_title != blank %}
+          <p>{{ block.settings.blog_title }}</p>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Blog Post",
+	"max_blocks":3,
+    "settings": [
+		{
+			"type":"text",
+			"id":"heading",
+			"label":"Heading"
+		}
+	],
+	"blocks":[
+		{
+			"name":"Blog",
+			"type":"blog_post",
+			"settings":[
+				{
+                    "type":"image_picker",
+                    "id":"blog_image",
+                    "label":"Image"
+                },
+				{
+                    "type":"text",
+                    "id":"blog_date",
+                    "label":"Date"
+                },
+				{
+                    "type":"text",
+                    "id":"blog_title",
+                    "label":"Title"
+                },
+				{
+                    "type":"url",
+                    "id":"url_id",
+                    "label":"URL"
+                }
+			]
+		}
+	],
+    "presets": [
+      {
+        "name": {
+          "en": "Home Blog Post"
+        },
+        "category": {
+          "en": "List"
+        }
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

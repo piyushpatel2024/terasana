@@ -1,0 +1,128 @@
+{% capture account_order_data %}
+{
+  {%- if order.cancelled -%}
+  "cancelled_at": {{ order.cancelled_at | date: "%B %d, %Y %I:%M%p" | json }},
+  {%- endif -%}
+  "items":[
+    {%- for line_item in order.line_items -%}
+    {%- if forloop.first != true %},{% endif -%}
+    {
+      {%- if line_item.fulfillment -%}
+        {%- assign created_at = line_item.fulfillment.created_at | date: format: 'month_day_year' -%}
+        "fulfillment": {
+          {%- if line_item.fulfillment.tracking_url -%}
+            "tracking_url": {{ line_item.fulfillment.tracking_url | json }},
+          {%- endif -%}
+          {%- if line_item.fulfillment.tracking_number -%}
+            "tracking_number": "#{{ line_item.fulfillment.tracking_number }}",
+          {%- endif -%}
+          "tracking_company": {{ line_item.fulfillment.tracking_company | json }},
+          "fulfilled_at": {{ 'customer.order.fulfilled_at' | t: date: created_at | json }}
+        },
+      {%- endif -%}
+      "title": {{ line_item.title | json }},
+      "product_url": {{ line_item.product.url | json }},
+      "created_at": {{ created_at | json }},
+      "sku": {{ line_item.sku | json }},
+      "price": {{ line_item.price | money | json }},
+      "quantity": {{ line_item.quantity | json }},
+      "total": {{ line_item.quantity | times: line_item.price | money | json }}
+    }
+    {%- endfor -%}
+  ],
+  "discounts": [
+    {%- for discount in order.discounts -%}
+      {%- if forloop.first != true %},{% endif -%}
+      {
+        "code": {{ discount.code | json }},
+        "savings": {{ discount.savings | money | json }}
+      }
+    {%- endfor -%}
+  ],
+  "shipping_methods":[
+    {%- for discount in order.discounts -%}
+      {%- if forloop.first != true %},{% endif -%}
+      {
+        "title": {{ shipping_method.title | json }},
+        "price": {{ shipping_method.price | money | json }}
+      }
+    {%- endfor -%}
+  ],
+  "tax_lines":[
+    {%- for tax_line in order.tax_lines -%}
+      {%- if forloop.first != true %},{% endif -%}
+      {
+        "title": {{ tax_line.title | json }},
+        "rate": {{ tax_line.rate | times: 100 | json }},
+        "price": {{ tax_line.price | money | json }}
+      }
+    {%- endfor -%}
+  ],
+  "total": "{{ order.total_price | money }} {{ order.currency }}",
+  "address": {
+    "billing": {{ order.billing_address | format_address | json }},
+    "shipping": {{ order.shipping_address | format_address | json }}
+  },
+  "subtotal_price": {{ order.subtotal_price | money | json }},
+  "fulfillment_status_label": {{ order.fulfillment_status_label | json }},
+  "financial_status_label": {{ order.financial_status_label | json }},
+  "order_title": {{ 'customer.order.title' | t: name: order.name | json }},
+  {%- assign order_date = order.created_at | date: "%B %d, %Y %I:%M%p" -%}
+  "order_date": {{ 'customer.order.date' | t: date: order_date | json }}
+}
+{% endcapture %}
+
+<section
+  class="section-account-order" 
+  data-section-type="account-order"
+  data-section-id="{{ section.id }}" 
+  data-vue-settings="{{ section.settings | json | url_escape }}"
+  data-vue-order-data="{{ account_order_data | url_escape }}">
+  {%comment%}<div class="bg-yellow page-width">{{ account_settings }}</div>{%endcomment%}
+  {%comment%}<div class="bg-yellow page-width">{{ account_order_data }}</div>{%endcomment%}
+  <div id="vue-account-order"></div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Account Order Settings"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme (todo)"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-section.liquid
+{% endcomment %}
+
+{% assign collection_type = collection.metafields.createtribe.type %}
+
+{% case collection_type %}
+  {% when "" or blank %}
+    {% section 'collection--section' %}
+{% endcase %}

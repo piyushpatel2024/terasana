@@ -1,0 +1,84 @@
+{% capture localArticleData %}
+  {% include 'data-json--article' %}
+{% endcapture %}
+
+<section 
+  data-section-id="{{ section.id }}" 
+  data-section-type="article"
+  data-vue-handle="{{ article.handle }}"
+  data-vue-source="local"
+  data-vue-theme="light"
+  data-vue-article="{{ localArticleData | url_escape }}"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+
+  <div id="vue-article"></div>
+  
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Article Settings"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": {
+          "en": "Show author"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": {
+          "en": "Show date"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": {
+          "en": "Show social sharing buttons"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

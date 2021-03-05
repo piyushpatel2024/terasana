@@ -1,0 +1,134 @@
+{% capture blogData %}
+  {% include 'data-json--blog' %}
+{% endcapture %}
+<noscript>
+  {{blogData}}
+</noscript>
+
+<section 
+  data-section-id="{{ section.id }}" 
+  data-section-type="blog"
+  data-vue-handle="{{ blog.handle }}"
+  data-vue-source="local"
+  data-vue-theme="light"
+  data-vue-blog="{{ blogData | url_escape }}"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+
+  <div id="vue-blog"></div>
+
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Blog Settings"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_page_header",
+        "label": {
+          "en": "Show blog header"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_blog_title",
+        "label": {
+          "en": "Show blog title"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_blog_filter",
+        "label": {
+          "en": "Show blog filter"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "blog_title",
+        "label": {
+          "en": "Blog title"
+        },
+        "default": "Blog"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": {
+          "en": "Layout"
+        },
+        "default": "list",
+        "options": [
+          {
+            "value": "grid",
+            "label": {
+              "en": "Grid"
+            }
+          },
+          {
+            "value": "list",
+            "label": {
+              "en": "List"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": {
+          "en": "Show author"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": {
+          "en": "Show date"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+

@@ -1,0 +1,65 @@
+{% comment %}
+    The article object
+    https://help.shopify.com/en/themes/liquid/objects/article
+    article.author
+    article.comments
+    article.comments_count
+    article.comments_enabled?
+    article.comment_post_url
+    article.content
+    article.created_at
+    article.excerpt
+    article.excerpt_or_content
+    article.handle
+    article.id
+    article.image
+    article.moderated?
+    article.published_at
+    article.tags
+    article.title
+    article.url
+    article.user
+{% endcomment %}
+
+{% comment %} Array {% endcomment %}
+{%- capture article_tags %}
+  {% if article.tags.length > 0 %}
+    {%- for a_tag in article.tags -%}
+        {%- if forloop.length == 1 -%}
+            ["{{ a_tag }}"]
+        {% else %}
+            {%- if forloop.first == true -%}
+                ["{{ a_tag }}",
+                {%- elsif forloop.last == true -%}
+                "{{ a_tag }}"]
+            {%- else -%}
+                "{{ a_tag }}",
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+  {% else %}
+    []
+  {% endif %}
+{%- endcapture -%}
+
+
+{
+    "author": {{ article.author | json  }},
+    "comments": {{ article.comments | json }},
+    "comments_count": {{ article.comments_count | json }},
+    "comments_enabled": {{ article.comments_enabled? | json }},
+    "comment_post_url": {{ article.comment_post_url | json }},
+    "content": {{ article.content | json }},
+    "created_at": {{ article.created_at | json }},
+    "excerpt": {{ article.excerpt | json }},
+    "excerpt_or_content": {{ article.excerpt_or_content | json }},
+    "handle": {{ article.handle | json }},
+    "id": {{ article.id | json }},
+    "image": {{ article.image | json }},
+    "moderated": {{ article.moderated? | json }},
+    "published_at": {{ article.published_at | json }},
+    "tags": {{ article_tags }},
+    "title": {{ article.title | json }},
+    "url": {{ article.url | json }},
+    "user": {{ article.user | json }}
+}

@@ -1,0 +1,5 @@
+{% comment %} Zendesk Style Overwrites {% endcomment %}
+{{ 'app-zendesk-ow.css' | asset_url | stylesheet_tag, 'zd-ow' }}
+
+{% comment %} Returns Magic Overwrites {% endcomment %}
+{{ 'app-returns-magic-ow.css' | asset_url | stylesheet_tag, 'rm-ow' }}

@@ -1,0 +1,79 @@
+[
+  {% for block in section.blocks %}
+    {% assign size = '900x' %}
+    {% assign widths = 'w-100-ns, w-50-ns, w-two-thirds-ns, w-third-ns' %}
+    {% if widths contains block.settings.width %}{% assign size = '1920x' %}{% endif %}
+    {% assign link = block.settings.link %}
+    {% assign imgSrc = block.settings.bg_image %}
+    {% assign txtTitle = block.settings.text_title %}
+    {% assign txtBody = block.settings.text_body %}
+
+    {% if forloop.first != true %},{% endif %}
+    {
+      "bgColor": "{{ block.settings.bg_color }}"
+      {%- if block.settings.bg_image -%}
+      ,"bgImage": {{ imgSrc | json }}
+      ,"bgImageAnim": { "type": {{ block.settings.bg_anim_type | json }}, "scale": {{ block.settings.bg_anim_scale | json }}, "order": {{ block.settings.bg_anim_order | json }} }
+      {%- endif -%}
+      ,"bgOpacity": {{ block.settings.bg_opacity | json }}
+      ,"btnCusClass": {{ block.settings.btn_custom_classes | json }}
+      ,"btnEnable": {{ block.settings.btn_enable | json }}
+      ,"btnLabel": {{ block.settings.btn_label | json }}
+      ,"btnAnim": { "type": {{ block.settings.btn_anim_type | json }}, "scale": {{ block.settings.btn_anim_scale | json }}, "order": {{ block.settings.btn_anim_order | json }} }
+      ,"btntype": {{ block.settings.btn_type | json }}
+      ,"cusClass": {{ block.settings.block_custom_classes  | json }}
+      ,"formEnableName": {{ block.settings.form_enable_name | json }}
+      ,"height": {{ block.settings.height | json }}
+      ,"heightMobile": {{ block.settings.height_mobile | json }}
+      ,"htmEmbed": {{ block.settings.html_embed | json }}
+      ,"htmPadding": {{ block.settings.html_padding | json }}
+      ,"htmPosHor": {{ block.settings.html_position_horizontal | json }}
+      ,"htmMaxWidth": {{ block.settings.html_max_width | json }}
+      ,"htmAlignment": {{ block.settings.html_alignment | json }}
+      ,"htmPosVer": {{ block.settings.html_position_vertical | json }}
+      ,"link": {{ link | json }}
+      ,"logoEnabled": {{ block.settings.logo_enabled | json }}
+      ,"logoCusClass": {{ block.settings.logo_custom_classes | json }}
+      ,"mediaQuery": {{ block.settings.media_query | json }}
+      ,"ratio": {{ block.settings.ratio | json }}
+      ,"theme": {{ block.settings.block_theme | json }}
+      ,"txtAlignment": {{ block.settings.text_alignment | json }}
+      ,"txtBody": {{ txtBody | json }}
+      ,"txtBodyAnim": { "type": {{ block.settings.body_anim_type | json }}, "scale": {{ block.settings.body_anim_scale | json }}, "order": {{ block.settings.body_anim_order | json }} }
+      ,"txtBodyCusClass": {{ block.settings.text_body_custom_classes  | json }}
+      ,"txtBodyOrder": {{ block.settings.text_body_order | json }}
+      ,"txtBodySize": {{ block.settings.text_body_size | json }}
+      ,"txtImageAnim": { "type": {{ block.settings.img_anim_type | json }}, "scale": {{ block.settings.img_anim_scale | json }}, "order": {{ block.settings.img_anim_order | json }} }
+      ,"txtImage": {{ block.settings.text_image | json }}
+      ,"txtImagePosition": {{ block.settings.text_image_position | json }}
+      ,"txtImageCusClass": {{ block.settings.text_image_custom_classes | json }}
+      ,"txtFullBleed": {{ block.settings.text_full_bleed | json }}
+      ,"txtMaxWidth": {{ block.settings.text_max_width | json }}
+      ,"txtPadding": {{ block.settings.text_padding | json }}
+      ,"txtPosition": {{ block.settings.text_position | json }}
+      ,"txtPosHor": {{ block.settings.text_position_horizontal | json }}
+      ,"txtPosVer": {{ block.settings.text_position_vertical | json }}
+      ,"txtShadow": {{ block.settings.text_shadow | json }}
+      ,"txtSubTitle": {{ block.settings.text_subtitle | json }}
+      ,"txtSubTitleAnim": { "type": {{ block.settings.subtitle_anim_type | json }}, "scale": {{ block.settings.subtitle_anim_scale | json }}, "order": {{ block.settings.subtitle_anim_order | json }} }
+      ,"txtSubTitleCusClass": {{ block.settings.text_subtitle_custom_classes  | json }}
+      ,"txtSubTitleSize": {{ block.settings.text_subtitle_size | json }}
+      ,"txtTitle": {{ txtTitle | json }}
+      ,"txtTitleAnim": { "type": {{ block.settings.title_anim_type | json }}, "scale": {{ block.settings.title_anim_scale | json }}, "order": {{ block.settings.title_anim_order | json }} }
+      ,"txtTitleSize": {{ block.settings.text_title_size | json }}
+      ,"txtTitleWeight": {{ block.settings.text_title_weight | json }}
+      ,"txtTitleCusClass": {{ block.settings.text_title_custom_classes  | json }}
+      ,"type": {{ block.type | json }}
+      ,"vidAutoPlay": {{ block.settings.video_autoplay | json }}
+      ,"vidFitBound": {{ block.settings.video_fit | json }}
+      ,"vidId": "{{ block.settings.video_id }}"
+      ,"vidLoop": {{ block.settings.video_loop | json }}
+      ,"vidOffsetX": {{ block.settings.video_offset_x | json }}
+      ,"vidOffsetY": {{ block.settings.video_offset_y | json }}
+      ,"vidRefreshRate": {{ block.settings.video_rate | json  }}
+      ,"vidSrc": {{ block.settings.video_source | json }}
+      ,"vidUrl": "{{ block.settings.video_url }}"
+      ,"width": {{ block.settings.width | json }}
+    }
+  {% endfor %}
+]

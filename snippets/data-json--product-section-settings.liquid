@@ -1,0 +1,13 @@
+{% comment %} 
+    Exposes customiser section and blocks data to product.vue
+{% endcomment %}
+
+{% comment %} block_settings: {{block_settings}} {% endcomment %}
+{% if block_settings == blank %}{% capture s_block_settings %}{}{% endcapture %}{% endif %}
+{% capture secSettings %}{{ section.settings | json }}{% endcapture %}
+
+{
+    "template_section_id" : {{ section.id | json }},
+    "template_settings" : {{ secSettings }},
+    "template_block_settings" : {{ block_settings | default: s_block_settings }}
+}

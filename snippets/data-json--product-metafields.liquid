@@ -1,0 +1,133 @@
+{% comment %} pdp_info fields {% endcomment %}
+
+{%- capture pdm_info_metafields %}
+  {%- if product.metafields.pdp_info.size > 0 -%}
+      {%- for field in product.metafields.pdp_info -%}
+          {%- assign meta = field -%}
+          {% capture info_meta_item %}"{{ meta | first }}" : {{ meta | last | json }}{% endcapture %}
+          {%- if forloop.length == 1 -%}
+              { {{info_meta_item  }} }
+          {% else %}
+              {%- if forloop.first == true -%}
+                  { {{info_meta_item  }} ,
+                  {%- elsif forloop.last == true -%}
+                  {{info_meta_item  }} }
+              {%- else -%}
+                  {{info_meta_item }} ,
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- else -%}
+        {}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture pdm_details_list_metafields %}
+  {%- if product.metafields.pdp_details_list.size > 0 -%}
+      {%- for field in product.metafields.pdp_details_list -%}
+          {%- assign meta = field -%}
+          {% capture info_meta_item %}"{{ meta | first }}" : {{ meta | last | json }}{% endcapture %}
+          {%- if forloop.length == 1 -%}
+              { {{info_meta_item  }} }
+          {% else %}
+              {%- if forloop.first == true -%}
+                  { {{info_meta_item  }} ,
+                  {%- elsif forloop.last == true -%}
+                  {{info_meta_item  }} }
+              {%- else -%}
+                  {{info_meta_item }} ,
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- else -%}
+        {}
+  {%- endif -%}
+{%- endcapture -%}
+
+{% comment %} pdp_details fields {% endcomment %}
+{%- capture pdm_details_metafields %}
+  {%- if product.metafields.pdp_details.size > 0 -%}
+      {%- for field in product.metafields.pdp_details -%}
+          {%- assign meta = field -%}
+          {% capture details_meta_item %}"{{ meta | first }}" : {{ meta | last | json }}{% endcapture %}
+          {%- if forloop.length == 1 -%}
+              { {{details_meta_item}} }
+          {% else %}
+              {%- if forloop.first == true -%}
+                  { {{details_meta_item}} ,
+                  {%- elsif forloop.last == true -%}
+                  {{details_meta_item}} }
+              {%- else -%}
+                  {{details_meta_item }} ,
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- else -%}
+        {}
+  {%- endif -%}
+{%- endcapture -%}
+
+
+{% comment %} pdp_status fields {% endcomment %}
+{%- capture pdm_status_metafields %}
+  {%- if product.metafields.pdp_status.size > 0 -%}
+      {%- for field in product.metafields.pdp_status -%}
+          {%- assign meta = field -%}
+          {% capture status_meta_item %}"{{ meta | first }}" : "{{ meta | last }}"{% endcapture %}
+          {%- if forloop.length == 1 -%}
+              { {{status_meta_item}} }
+          {% else %}
+              {%- if forloop.first == true -%}
+                  { {{status_meta_item}} ,
+                  {%- elsif forloop.last == true -%}
+                  {{status_meta_item}} }
+              {%- else -%}
+                  {{status_meta_item}} ,
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- else -%}
+        {}
+  {%- endif -%}
+{%- endcapture -%}
+
+{% comment %} pdp_status fields {% endcomment %}
+{%- capture pdm_size_guide_metafield %}
+  {%- if product.metafields.pdp_size_guide.size > 0 -%}
+      {%- for field in product.metafields.pdp_size_guide -%}
+          {%- assign meta = field -%}
+          {% capture pdp_size_guide_meta_item %}"{{ meta | first }}" : "{{ meta | last }}"{% endcapture %}
+          {%- if forloop.length == 1 -%}
+              { {{pdp_size_guide_meta_item}} }
+          {% else %}
+              {%- if forloop.first == true -%}
+                  { {{pdp_size_guide_meta_item}} ,
+                  {%- elsif forloop.last == true -%}
+                  {{pdp_size_guide_meta_item}} }
+              {%- else -%}
+                  {{pdp_size_guide_meta_item}} ,
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  {%- else -%}
+        {}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture pdm_product_metafields %}
+{ "details_list": {{ pdm_details_list_metafields }}, "info_list": {{ pdm_info_metafields }}, "pdp_status": {{ pdm_status_metafields }}, "pdp_details": {{ pdm_details_metafields }}, "size_guide": {{pdm_size_guide_metafield}} }
+{%- endcapture -%}
+
+{% comment %} PRODUCT STAMPED REVIEWS {% endcomment %}
+{%- capture pdm_stamped_reviews %}
+  {%- if product.metafields.stamped.reviews -%}
+    {
+      "reviews": {{ product.metafields.stamped.reviews | json }},
+      "reviews_average": {{ product.metafields.stamped.reviews_average | json }},
+      "reviews_count": {{ product.metafields.stamped.reviews_count | json }},
+      "badge": {{ product.metafields.stamped.badge | json }}
+    }  
+  {%- else -%}
+      {}
+  {%- endif -%}
+{%- endcapture -%}

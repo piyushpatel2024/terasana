@@ -1,0 +1,72 @@
+ 
+{% comment %} 
+  Shopify's font library
+  @see: https://help.shopify.com/en/themes/development/fonts/library
+  @See: https://help.shopify.com/en/themes/liquid/filters/font-filters
+{% endcomment %}
+
+{% comment %} Base font families chosen via theme_settings/typography {% endcomment %}
+{%- assign font_header_font = settings.type_header_font  -%}
+{%- assign font_body_font = settings.type_base_font -%}
+{%- assign font_button_font = settings.type_button_font -%}
+
+{% comment %} Bold {% endcomment %}
+{%- assign font_header_font_bolder = settings.type_header_font | font_modify: 'weight', 'bolder' -%}
+{%- assign font_body_font_bolder = settings.type_base_font | font_modify: 'weight', 'bolder' -%}
+ 
+ 
+<style id="font-styles" type="text/css">
+  /* HEADER FONT */
+  {{ font_header_font | font_face }}
+  /* BUTTON FONT */
+  {{ font_button_font | font_face }}
+  /* BODY FONT */
+  {{ font_body_font | font_face }}
+
+  /* Headings */
+  h1, h2, h3, h4 {
+    font-family: {{ font_header_font.family }}, Helvetica, Arial !important;
+  }
+
+  /* .headings-font */
+  .{{ font_header_font.family | handleize | downcase }}, .headings-font {
+    font-family: "{{ font_header_font.family }}" !important;   
+  }
+  
+  /* .body-font */
+  .{{ font_body_font.family | handleize | downcase }}, .body-font {
+    font-family: {{ font_body_font.family }} !important; 
+  }
+
+  /* Base fonts */
+  h5, h6, p, a, li, ul, ol, span, b, strong, i, small, div {
+    font-family: {{ font_body_font.family }}; 
+  }
+
+/*   p, a, li, ul, ol, span, b, strong, i, small, div {
+    font-size: {{ settings.type_base_size }}px;
+  } */
+  
+  :root {
+    --font-header-family: {{ font_header_font.family }}, Helvetica, Arial;
+    --font-body-family: {{ font_body_font.family }}, Helvetica, Arial;
+    --font-button-family: {{ font_button_font.family }}, Helvetica, Arial;
+    --brand-color-light: {{ settings.brand_color_light }};
+    --brand-color-light-alt: {{ settings.brand_color_light_alt }};
+    --brand-color-dark: {{ settings.brand_color_dark }};
+    --brand-color-dark-alt: {{ settings.brand_color_dark_alt }};
+  }
+    .privy-popup-container p, 
+    .privy-popup-container a, 
+    .privy-popup-container li, 
+    .privy-popup-container ul, 
+    .privy-popup-container ol, 
+    .privy-popup-container span, 
+    .privy-popup-container b, 
+    .privy-popup-container strong, 
+    .privy-popup-container i, 
+    .privy-popup-container small, 
+    .privy-popup-container div {
+/*       font-family: inherit; */
+    }
+</style>

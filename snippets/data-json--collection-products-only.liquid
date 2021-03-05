@@ -1,0 +1,22 @@
+
+{% if perPage != nil %}
+  {% assign perPage = 9 %}
+{% endif %}
+
+{%- if collection.products -%}
+  {% paginate collection.products by perPage %}
+    {%- capture page_products -%}
+      {{ collection.products | json }}
+    {%- endcapture -%}
+  {% endpaginate %}
+  {
+    "handle": {{ collection.handle | json }},
+    "products": {{ page_products | default: [] }}
+  }
+{% else %}
+  {
+    "title": {{ collection.title | json }},
+    "handle": {{ collection.handle | json }},
+    "description": {{ collection.description | json }}
+  }
+{%- endif -%}

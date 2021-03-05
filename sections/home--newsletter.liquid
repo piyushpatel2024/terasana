@@ -1,0 +1,371 @@
+<section 
+  data-section-id="{{ section.id }}"
+  data-section-type="index-newsletter"
+  data-vue-section-id="{{ section.id }}"
+  data-vue-theme="{{ section.settings.section_theme | json | url_escape }}"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+
+  <div id="vue-index-newsletter"></div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "en": "Newsletter"
+  },
+  "class": "index-section index-newsletter",
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "en": "Section"
+      }
+    },
+    {
+      "type": "select",
+      "id": "section_theme",
+      "label": {
+        "en": "Color theme"
+      },
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": {
+            "en": "Light Background"
+          }
+        },
+        {
+          "value": "light-alt",
+          "label": {
+            "en": "Alt Light Background"
+          }
+        },
+        {
+          "value": "dark-alt",
+          "label": {
+            "en": "Alt Dark Background"
+          }
+        },
+        {
+          "value": "dark",
+          "label": {
+            "en": "Dark background"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "section_media_query",
+      "label": {
+        "en": "Media Query"
+      },
+      "default": "hide-none",
+      "options": [
+        {
+          "value": "hide-none",
+          "label": {
+            "en": "Show on Mobile and Desktop"
+          }
+        },
+        {
+          "value": "hide-desktop",
+          "label": {
+            "en": "Hide on Desktop"
+          }
+        },
+        {
+          "value": "hide-mobile",
+          "label": {
+            "en": "Hide on mobile"
+          }
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "section_full_bleed",
+      "label": {
+        "en": "Section Full Bleed"
+      },
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_alignment",
+      "label": {
+        "en": "Text Alignment"
+      },
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": {
+            "en": "Left"
+          }
+        },
+        {
+          "value": "center",
+          "label": {
+            "en": "Center"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+            "en": "Right"
+          }
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": {
+        "en": "Background Image"
+      }
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": {
+        "en": "Background Color"
+      },
+      "default": "#fff"
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Logo"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_logo",
+      "label": {
+        "en": "Logo enabled"
+      }
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Heading"
+      }
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "en": "Section Title"
+      }
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": {
+        "en": "Title text size"
+      },
+      "default": "h1",
+      "options": [
+        {
+          "value": "h1",
+          "label": {
+            "en": "h1"
+          }
+        },
+        {
+          "value": "h2",
+          "label": {
+            "en": "h2"
+          }
+        },
+        {
+          "value": "h3",
+          "label": {
+            "en": "h3"
+          }
+        },
+        {
+          "value": "h4",
+          "label": {
+            "en": "h4"
+          }
+        },
+        {
+          "value": "h5",
+          "label": {
+            "en": "h5"
+          }
+        },
+        {
+          "value": "h6",
+          "label": {
+            "en": "h6"
+          }
+        },
+        {
+          "value": "xl",
+          "label": {
+            "en": "Heading extra large"
+          }
+        },
+        {
+          "value": "l",
+          "label": {
+            "en": "Heading large"
+          }
+        },
+        {
+          "value": "m",
+          "label": {
+            "en": "Heading medium"
+          }
+        },
+        {
+          "value": "s",
+          "label": {
+            "en": "Heading small"
+          }
+        }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Blurb"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "blurb",
+      "label": {
+        "en": "Section Body"
+      }
+    },
+    {
+      "type": "select",
+      "id": "blurb_size",
+      "label": {
+        "en": "Body blurb size"
+      },
+      "default": "sm",
+      "options": [
+        {
+          "value": "xs",
+          "label": {
+            "en": "xs"
+          }
+        },
+        {
+          "value": "s",
+          "label": {
+            "en": "s"
+          }
+        },
+        {
+          "value": "sm",
+          "label": {
+            "en": "sm"
+          }
+        },
+        {
+          "value": "m",
+          "label": {
+            "en": "m"
+          }
+        },
+        {
+          "value": "ml",
+          "label": {
+            "en": "ml"
+          }
+        },
+        {
+          "value": "l",
+          "label": {
+            "en": "l"
+          }
+        },
+        {
+          "value": "xl",
+          "label": {
+            "en": "xl"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "blurb_position",
+      "label": {
+        "en": "blurb position"
+      },
+      "default": "above",
+      "options": [
+        {
+          "value": "above",
+          "label": {
+            "en": "Above form"
+          }
+        },
+        {
+          "value": "under",
+          "label": {
+            "en": "Under form"
+          }
+        }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": {
+        "en": "Custom Classes"
+      }
+    },
+    {
+      "type": "text",
+      "id": "logo_custom_classes",
+      "label": {
+        "en": "Logo Custom classes (separate with space)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "section_custom_classes",
+      "label": {
+        "en": "Section Custom classes (separate with space)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "title_custom_classes",
+      "label": {
+        "en": "Title Custom classes (separate with space)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "blurb_custom_classes",
+      "label": {
+        "en": "Blurb Custom classes (separate with space)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Newsletter"
+      },
+      "category": {
+        "en": "Form"
+      }
+    }
+  ]
+}
+{% endschema %}
+

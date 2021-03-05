@@ -1,0 +1,49 @@
+{% form 'contact' %}
+  {%- capture form_status -%}
+    {
+      "error": [
+          {%- if form.errors -%}
+            {%- for error in form.errors -%}
+              {%- if forloop.first != true %},{% endif -%}
+              {% capture field_label %}
+                  {% case field %}
+                    {% when 'author' %}
+                      {{ 'contact.form.name' | t }}
+                    {% when 'body' %}
+                      {{ 'contact.form.message' | t }}
+                    {% else %}
+                      {{ form.errors.translated_fields[field] }}
+                  {% endcase %}
+                {% endcapture %}
+                {{ field_label | strip | capitalize }} {{ form.errors.messages[field] }}
+            {%- endfor -%}
+          {%- endif -%}
+      ],
+      "success": [
+        {%- if form.posted_successfully? -%}
+          {{ success_message | default: 'contact.form.post_success' | t | strip_html | json }}
+        {%- endif -%}
+      ]
+    }
+  {%- endcapture -%}
+{% endform %}
+
+{%- capture page_content -%}
+{
+"title": {{ page.title | json }},
+"rte": {{ page.content | json }}
+}
+{%- endcapture -%}
+
+<section
+  class="section-contact"
+  data-section-id="{{ section.id }}"
+  data-section-type="contact"
+  data-vue-theme="light"
+  data-vue-status="{{ form_status | url_escape }}"
+  data-vue-content=" {{ page_content | url_escape }}">
+  {%comment%}<div class="bg-yellow page-width">{{ page_content }}</div>{%endcomment%}
+  {%comment%}<div class="bg-yellow page-width">{{ form_status }}</div>{%endcomment%}
+  <div id="vue-contact"></div>
+</section>
+

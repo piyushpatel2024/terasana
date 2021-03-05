@@ -1,0 +1,13 @@
+{% layout none %}
+{
+  "performed": {{ search.performed | json }},
+  "results": [
+    {%- for item in search.results -%}
+      {%- if forloop.first != true -%},{%- endif -%}{{ item | json }}
+    {%- endfor -%}
+  ],
+  "results_count": {{ search.results_count | json }},
+  "terms": {{ search.terms | json }},
+  "types": {{ search.types | json }}
+}
+

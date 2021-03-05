@@ -1,0 +1,68 @@
+<section class="testimonial_section">
+  <div class="testimonial_container">
+    {% for block in section.blocks %}
+    <div class="testimonial_cols">
+      <div class="testimonial_col">
+        <div class="logo_testimonial">
+          <div class="testimonial_img">
+            <img src="{{ block.settings.logo_image | img_url: 'master'}}" alt="{{ block.settings.logo_image.alt }}">
+          </div>
+          <h2>{{ block.settings.title }}</h2>
+        </div>
+        <div class="testimonial_content">
+          <p>"{{ block.settings.content }}"</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  $('.testimonial_container').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: true,
+    infinite: true
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Testimonial Section",
+    "settings": [
+	  {
+		"type": "header",
+		"content": "Content"
+	  }
+	],
+	  "blocks": [
+      {
+        "type": "content",
+        "name": "content",
+        "settings": [
+		  {
+            "id": "logo_image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+		  {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+		  {
+            "type": "textarea",
+            "id": "content",
+            "label": "Content"
+          }	
+		]
+	   }	
+	  ],
+	"presets": [{
+      "name": "Testimonial Section",
+      "category": "Testimonial Section"
+    }]
+}
+{% endschema %}

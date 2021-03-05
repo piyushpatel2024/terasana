@@ -1,0 +1,69 @@
+{% if section.blocks.size > 0 %}
+<div class="product_section">
+   {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2>{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+ {% for block in section.blocks %}
+   {% assign product = all_products[block.settings.product] %}
+<div class="grid-view-item{% unless product.available %} product-price--sold-out grid-view-item--sold-out{% endunless %}">
+  <a class="grid-view-item__link grid-view-item__image-container" href="{{ product.url | within: collection }}">
+    <div id="{{ wrapper_id }}" class="grid-view-item__image-wrapper js">
+      <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.title }}">
+      </div>
+    <div class="h4 grid-view-item__title">{{ product.title }}</div>
+    
+    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+ 
+  </a>
+</div>
+
+  {% endfor %}
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Home Product",
+    "class": "index-section",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Meet Your new Sking care favorites"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Home Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Select Product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Home Product",
+        "category": "Product",
+        "blocks": [
+          {
+            "type": "product"
+          },
+          {
+            "type": "product"
+          },
+          {
+            "type": "product"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

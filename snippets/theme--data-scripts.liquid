@@ -1,0 +1,34 @@
+{% include 'data-script--store' %}
+
+
+{% comment %} Loaded based on template {% endcomment %}
+{% if template.name == 'index' %}{% endif %}
+
+{% if template.name == 'collection' %}
+    {% comment %} {% include 'data-script--collection' %} {% endcomment %}
+{% endif %}
+
+{% if template.name == 'product' %}
+    {% comment %} {% include 'data-script--product' %} {% endcomment %}
+{% endif %}
+
+{% if template.name == 'blog' %}
+    {% comment %} {% include 'data-script--blog' %} {% endcomment %}
+{% endif %}
+
+{% if template.name == 'article' %}
+    <script id="article-data" type="application/json">{%- include 'data-json--article' -%}</script>
+{% endif %}
+
+{% if template.name == 'list-collections' %}
+{% endif %}
+
+{% if template.name == '404' %}
+    {% include 'data-script--404' %}
+{% endif %}
+
+
+{% comment %}
+    Disabled
+    ...
+{% endcomment %}

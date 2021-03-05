@@ -1,0 +1,53 @@
+<aside 
+  data-section-id="{{ section.id }}"  
+  data-section-type="layout-drawer"
+  data-vue-with-buttons="{{ true | json }}"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+   
+  <div id="vue-layout-drawer"></div>
+</aside>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Drawer"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      }      
+    ]
+  }
+{% endschema %}
+

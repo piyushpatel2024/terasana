@@ -1,0 +1,50 @@
+
+{%- capture theme_col_img -%}{%- if collection.image != nil -%}{{- collection.image | img_url: 'master' -}}{%- else -%}{%- endif -%}{%- endcapture -%}
+
+{%- if collection.products -%}
+{% paginate collection.products by 1000 %}
+    {% capture all_items %}
+        {% for product in collection.products %}
+            {% capture product_item %}
+                {% include 'data-json--product' %}
+            {% endcapture %}
+            {%- if forloop.length == 1 -%}
+                [{{ product_item }}]
+            {%- else -%}
+                {%- if forloop.first == true -%}
+                    [ {{ product_item }},
+                    {%- elsif forloop.last == true -%}
+                    {{ product_item }}]
+                {%- else -%}
+                    {{ product_item }},
+                {%- endif -%}
+            {%- endif -%}
+        {% endfor %}
+    {% endcapture %}
+{% endpaginate %}
+{
+    "all_products_count": {{ collection.all_products_count | json }},
+    "all_tags": {{ collection.all_tags | json }},
+    "all_types": {{ collection.all_types | json }},
+    "all_vendors": {{ collection.all_vendors | json }},
+    "body_html": {{ collection.body_html | json }},
+    "current_type": {{ collection.current_type | json }},
+    "current_vendor": {{ collection.current_vendor | json }},
+    "default_sort_by": {{ collection.default_sort_by | json }},
+    "description": {{ collection.description | json }},
+    "handle": {{ collection.handle | json }},
+    "id": {{ collection.id | json }},
+    "image": "{{ theme_col_img }}",
+    "next_product": {{ collection.next_product | json }},
+    "previous_product": {{ collection.previous_product | json }},
+    "products_count": {{ collection.products_count | json }},
+    "products": {{ all_items }}, 
+    "published_at": {{ collection.published_at | json }},
+    "template_suffix": {{ collection.template_suffix | json }},
+    "tags": {{ collection.tags | json }},
+    "title": {{ collection.title | json }},
+    "url": {{ collection.url | json }}
+}
+{% else %}
+{ "title": {{ collection.title | json }}, "handle": {{ collection.handle | json }}, "description": {{ collection.description | json }}, "products": [] }
+{%- endif -%}

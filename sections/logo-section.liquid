@@ -1,0 +1,49 @@
+<section class="logo_section">
+  <div class="logo_container">
+    <div class="logo_col">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+    <div class="logo_cols">
+      {% for block in section.blocks %}
+      <div class="logo_colss">
+        <img src="{{ block.settings.logo_image | img_url: 'master'}}" alt="{{ block.settings.logo_image.alt }}">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Logo Section",
+    "settings": [
+	  {
+		"type": "header",
+		"content": "Content"
+	  },
+	  {
+		"type": "text",
+		"id": "title",
+		"label": "Title"
+	  }
+	],
+	  "blocks": [
+      {
+        "type": "logo_section",
+        "name": "logo section",
+        "settings": [
+		  {
+            "id": "logo_image",
+            "type": "image_picker",
+            "label": "Image"
+          }
+		]
+	   }	
+	  ],
+	"presets": [{
+      "name": "Logo Section",
+      "category": "Logo Section"
+    }]
+}
+{% endschema %}

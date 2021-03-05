@@ -1,0 +1,401 @@
+{% capture headerJSON %}
+  {% include 'data-json--header' %}
+{% endcapture %}
+
+<section
+    id="layout__header"
+    class="header"
+    data-section-id="{{ section.id }}"
+    data-section-type="layout-header"
+    data-vue-settings="{{ section.settings | json | url_escape }}"
+    data-vue-header-data="{{ headerJSON | url_escape }}">
+
+  <div id="vue-layout-header"></div>
+</section>
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Header"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Header Style"
+        }
+      },
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Header Style Overwrite"
+        }
+      },
+      {
+        "type": "select",
+        "id": "section_theme_overwrite",
+        "label": {
+          "en": "Color theme"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark Background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "textarea",
+        "id": "section_theme_overwrite_templates",
+        "label": {
+          "en": "Section theme Overwrite Templates"
+        },
+        "info": "Section theme overwrite applies to template list (separate with comma)"
+      },
+      {
+        "type": "textarea",
+        "id": "templates_with_fullscreen_hero",
+        "label": {
+          "en": "Templates with fullscreen hero"
+        }
+      },
+
+      {
+        "type": "header",
+        "content": {
+          "en": "Announcement bar"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement",
+        "label": {
+          "en": "Show announcement"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "home_page_only",
+        "label": {
+          "en": "Home page only"
+        },
+        "default": true
+      },
+      {
+          "type":   "range",
+          "id":     "announcement_delay",
+          "min":       0,
+          "max":       100,
+          "step":      1,
+          "unit":      "s",
+          "label":     "Delay in seconds",
+          "default":   10
+      },
+      {
+          "type":   "range",
+          "id":     "announcement_speed",
+          "min":       100,
+          "max":       1000,
+          "step":      100,
+          "unit":      "s",
+          "label":     "Transition speed in ms",
+          "default":   500
+      },
+      {
+        "type": "text",
+        "id": "message_text",
+        "label": {
+          "en": "Text"
+        },
+        "default": {
+          "en": "Announce something here"
+        }
+      },
+      {
+        "type": "text",
+        "id": "message_text_two",
+        "label": {
+          "en": "Text (Slide 2)"
+        }
+      },
+      {
+        "type": "text",
+        "id": "message_text_three",
+        "label": {
+          "en": "Text (Slide 3)"
+        }
+      },
+      {
+        "type": "url",
+        "id": "message_link",
+        "label": {
+          "en": "Link"
+        },
+        "info": {
+          "en": "Optional"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "overwrite_theme_colors",
+        "label": {
+          "en": "Overwrite theme colors"
+        },
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "announcement_color_bg",
+        "label": {
+          "en": "Bar"
+        },
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "announcement_color_text",
+        "label": {
+          "en": "Text"
+        },
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Logo"
+        }
+      },
+      {
+        "type": "select",
+        "id": "logo_source",
+        "label": {
+          "en": "Logo source"
+        },
+        "info": "for .svg please provideo url",
+        "default": "text",
+        "options": [
+          {
+            "value": "text",
+            "label": {
+              "en": "text"
+            }
+          },
+          {
+            "value": "png",
+            "label": {
+              "en": ".png"
+            }
+          },
+          {
+            "value": "svg",
+            "label": {
+              "en": ".svg"
+            }
+          }
+        ]
+      },
+      {
+        "type": "html",
+        "id": "logo_source_svg",
+        "label": ".svg HTML",
+        "default": "<div><p>Some svg content</p></div>"
+      },
+      {
+        "type": "radio",
+        "id": "align_logo",
+        "label": {
+          "en": "Logo alignment"
+        },
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": {
+              "en": "Left"
+            }
+          },
+          {
+            "value": "center",
+            "label": {
+              "en": "Centered"
+            }
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": {
+          "en": "Logo image"
+        }
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "label": {
+          "en": "Custom logo width"
+        },
+        "min": 50,
+        "max": 400,
+        "step": 5,
+        "unit": {
+          "en": "px"
+        },
+        "default": 100
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": {
+          "en": "Menu"
+        },
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Account / Login"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_account",
+        "label": {
+          "en": "Enable account"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Search form"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_search",
+        "label": {
+          "en": "Enable search form"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart",
+        "label": {
+          "en": "Show cart"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Header Drawer"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_collections_swiper_nav",
+        "label": {
+          "en": "Enable Collections Nav Slider"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_main_nav",
+        "label": {
+          "en": "Enable Main Menu Nav"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_social_networks",
+        "label": {
+          "en": "Enable Social Networks"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  {% if section.settings.logo %}
+    {% assign image_size = section.settings.logo.width | append:'x' %}
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+  {% endif %}
+  "sameAs": [
+    "{{ settings.social_twitter_link }}",
+    "{{ settings.social_facebook_link }}",
+    "{{ settings.social_pinterest_link }}",
+    "{{ settings.social_instagram_link }}",
+    "{{ settings.social_tumblr_link }}",
+    "{{ settings.social_snapchat_link }}",
+    "{{ settings.social_youtube_link }}",
+    "{{ settings.social_vimeo_link }}"
+  ],
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+
+{% if template.name == 'index' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}{{ page.url }}"
+    }
+  </script>
+{% endif %}
+
+
+<style data="templates_with_fullscreen_hero">
+{% assign list = section.settings.templates_with_fullscreen_hero | split: "," %}
+{% for item in list %}.template-{{ item }} #MainContent{%- unless forloop.last -%}, {%- endunless -%}{% endfor %}{ padding-top:0 }
+</style>

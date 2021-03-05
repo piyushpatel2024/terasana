@@ -1,0 +1,34 @@
+{%- capture theme_col_img -%}{%- if collection.image != nil -%}{{- collection.image | img_url: 'master' -}}{%- else -%}{%- endif -%}{%- endcapture -%}
+
+{% paginate collection.products by 250 %}
+  {%- if collection.products -%}
+  {
+    "all_products_count": {{ collection.all_products_count | json }},
+    "all_tags": {{ collection.all_tags | json }},
+    "all_types": {{ collection.all_types | json }},
+    "all_vendors": {{ collection.all_vendors | json }},
+    "current_type": {{ collection.current_type | json }},
+    "current_vendor": {{ collection.current_vendor | json }},
+    "default_sort_by": {{ collection.default_sort_by | json }},
+    "description": {{ collection.description | json }},
+    "handle": {{ collection.handle | json }},
+    "id": {{ collection.id | json }},
+    "image": "{{ theme_col_img }}",
+    "next_product": {{ collection.next_product | json }},
+    "previous_product": {{ collection.previous_product | json }},
+    "products_count": {{ collection.products_count | json }},
+    "products": {{ collection.products | json }},
+    "published_at": {{ collection.published_at | json }},
+    "template_suffix": {{ collection.template_suffix | json }},
+    "tags": {{ collection.tags | json }},
+    "title": {{ collection.title | json }},
+    "url": {{ collection.url | json }}
+  }
+  {% else %}
+  {
+    "title": {{ collection.title | json }},
+    "handle": {{ collection.handle | json }},
+    "description": {{ collection.description | json }}
+  }
+  {%- endif -%}
+{% endpaginate %}

@@ -1,0 +1,41 @@
+{% include 'data-model--product' %}
+{% include 'data-json--product-metafields' %}
+{% capture emptyObject %}{}{% endcapture %}
+{% capture emptyArray %}[]{% endcapture %}
+{
+    "available": {{ pdm_available }},
+    "collections":{{ pdm_collections }},
+    "compare_at_price_max":{{ pdm_compare_at_price_max }},
+    "compare_at_price_min": {{ pdm_compare_at_price_min }},
+    "description": {{ pdm_description | json }},
+    "featured_image": "{{ pdm_featured_image }}",
+    "first_available_variant": {{ pdm_first_available_variant | default: pdm_current_variant }},
+    "handle": "{{ pdm_handle }}",
+    "has_only_default_variant": {{ pdm_has_only_default_variant }},
+    "id": {{ pdm_id }},
+    "images": {{ pdm_images }},
+    "images_obj": {{ pdm_images_obj }},
+    "options": {{ pdm_options }},
+    "options_with_values": {{ pdm_options_with_values }},
+    "price": {{ pdm_price }},
+    "price_max":{{ pdm_price_max }},
+    "price_min":{{ pdm_price_min }},
+    "price_varies":{{ pdm_price_varies }},
+    "selected_variant": {{ pdm_selected_variant | default: emptyObject }},
+    "current_variant": {{ pdm_current_variant | default: pdm_selected_variant }},
+    "sectionSettings": {},
+    "sectionBlockSettings": {},
+    "tags": {{ pdm_tags }},
+    "template_suffix": "{{ pdm_template_suffix }}",
+    "title": "{{ pdm_title }}",
+    "type": "{{ pdm_type }}",
+    "url": "{{ pdm_url }}",
+    "variants": {{ pdm_variants }},
+    "vendor": "{{ pdm_vendor }}",
+    "variants_inventory":{{ pdm_variants_inventory }},
+    "total_quantity": {{ pdm_total_quantity }},
+    "product_metafields": {{ pdm_product_metafields }},
+    "product_block_metafields": {{ pdm_product_block_metafields }},
+    "variants_metafields": { {{ pdm_variants_metafields }} },
+    "reviews": {{ pdm_stamped_reviews }}
+}

@@ -1,0 +1,61 @@
+<aside
+  class="fixed bottom-2"
+  data-section-id="{{ section.id }}"  
+  data-section-type="layout-side-buttons"
+  data-vue-with-buttons="{{ true | json }}"
+  data-vue-settings="{{ section.settings | json | url_escape }}">
+   
+  <div id="vue-layout-side-buttons"></div>
+</aside>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Side Buttons"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "side_buttons_enabled",
+        "label": {
+          "en": "Side Buttons enabled"
+        },
+        "default": false
+      }
+    ]
+  }
+{% endschema %}

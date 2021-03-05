@@ -1,0 +1,71 @@
+{% comment %}
+The blog object
+    https://help.shopify.com/en/themes/liquid/objects/blog
+    blog.all_tags
+    blog.articles
+    blog.articles_count
+    blog.comments_enabled?
+    blog.handle
+    blog.id
+    blog.moderated?
+    blog.next_article
+    blog.previous_article
+    blog.tags
+    blog.title
+    blog.url
+{% endcomment %}
+
+{%- capture blog_tags %}
+  {% if blog.all_tags.length > 0 %}
+    {%- for tag in blog.all_tags -%}
+        {%- if forloop.length == 1 -%}
+            ["{{ tag }}"]
+        {% else %}
+            {%- if forloop.first == true -%}
+                ["{{ tag }}",
+                {%- elsif forloop.last == true -%}
+                "{{ tag }}"]
+            {%- else -%}
+                "{{ tag }}",
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+  {% else %}
+    []
+  {% endif %}
+{%- endcapture -%}
+{%- capture filtered_tags %}
+    {% if blog.tags.length %}
+      {%- for f_tag in blog.tags -%}
+          {%- if forloop.length == 1 -%}
+              ["{{ f_tag }}"]
+          {% else %}
+              {%- if forloop.first == true -%}
+                  ["{{ f_tag }}",
+                  {%- elsif forloop.last == true -%}
+                  "{{ f_tag }}"]
+              {%- else -%}
+                  "{{ f_tag }}",
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+    {% else %}
+      []
+    {% endif %}
+{%- endcapture -%}
+
+
+{
+    "all_tags": {{ blog_tags }},
+    "articles": {{ blog.articles | json }},
+    "articles_count": {{ blog.articles_count | json }},
+    "comments_enabled": {{ blog.comments_enabled? | json }},
+    "handle": {{ blog.handle | json }},
+    "id": {{ blog.id | json }},
+    "moderated": {{ blog.moderated? | json }},
+    "next_article": {{ blog.next_article | json }},
+    "previous_article": {{ blog.previous_article | json }},
+    "tags": {{ filtered_tags }},
+    "title": {{ blog.title | json }},
+    "url": {{ blog.url | json }}
+}

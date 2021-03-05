@@ -1,0 +1,393 @@
+
+<aside
+  data-section-id="{{ section.id }}"
+  data-section-type="layout-modal"
+  data-vue-settings="{{ section.settings | json | url_escape }}" 
+  data-vue-theme="{{ section.settings.modal_theme | json }}">
+      
+  <div id="vue-layout-modal"></div>
+
+</aside>
+
+
+{% schema %}
+  {
+    "name": {
+      "en": "Modal"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Modal Settings"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "modal_enabled",
+        "label": {
+          "en": "Modals enabled"
+        },
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "modal_theme",
+        "label": {
+          "en": "Color theme (todo)"
+        },
+        "default": "light",
+        "options": [
+          {
+            "value": "light",
+            "label": {
+              "en": "Light Background"
+            }
+          },
+          {
+            "value": "light-alt",
+            "label": {
+              "en": "Alt Light Background"
+            }
+          },
+          {
+            "value": "dark-alt",
+            "label": {
+              "en": "Alt Dark Background"
+            }
+          },
+          {
+            "value": "dark",
+            "label": {
+              "en": "Dark background"
+            }
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "general_mute_time",
+        "info": { 
+          "en": "If closed, mute welcome & exit modals"
+        },
+        "label": {
+          "en": "Mute modals for:"
+        },
+        "min": 1,
+        "max": 96,
+        "step": 1,
+        "unit": {
+          "en": "hrs"
+        },
+        "default": 5
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Welcome Options"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "modal_welcome_enabled",
+        "label": {
+          "en": "Show welcome modal"
+        },
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "modal_welcome_type",
+        "label": {
+          "en": "Welcome modal"
+        },
+        "default": "newsletter",
+        "options": [
+          {
+            "value": "newsletter",
+            "label": {
+              "en": "Newsletter"
+            }
+          },
+          {
+            "value": "promo",
+            "label": {
+              "en": "Promo"
+            }
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "modal_welcome_allowed_paths",
+        "label": {
+          "en": "Show welcome modal in"
+        },
+        "default": "index",
+        "options": [
+          {
+            "value": "index",
+            "label": {
+              "en": "Homepage only"
+            }
+          },
+          {
+            "value": "index,collection",
+            "label": {
+              "en": "Home & Collections"
+            }
+          },
+          {
+            "value": "index,product",
+            "label": {
+              "en": "Home & Products"
+            }
+          },
+          {
+            "value": "index,page",
+            "label": {
+              "en": "Home & Pages"
+            }
+          },
+          {
+            "value": "collection",
+            "label": {
+              "en": "Collections Only"
+            }
+          },
+          {
+            "value": "product",
+            "label": {
+              "en": "Products Only"
+            }
+          },
+          {
+            "value": "page",
+            "label": {
+              "en": "Pages Only"
+            }
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "modal_welcome_timer",
+        "label": {
+          "en": "Show welcome modal after.."
+        },
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "unit": {
+          "en": "s"
+        },
+        "default": 5
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Exit Options"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "modal_exit_enabled",
+        "label": {
+          "en": "Show exit modal"
+        },
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "modal_exit_type",
+        "label": {
+          "en": "Exit modal"
+        },
+        "default": "promo",
+        "options": [
+          {
+            "value": "newsletter",
+            "label": {
+              "en": "Newsletter"
+            }
+          },
+          {
+            "value": "promo",
+            "label": {
+              "en": "Promo"
+            }
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "modal_exit_allowed_paths",
+        "label": {
+          "en": "Show exit modal in"
+        },
+        "default": "cart",
+        "options": [
+          {
+            "value": "index",
+            "label": {
+              "en": "Homepage only"
+            }
+          },
+          {
+            "value": "index,collection",
+            "label": {
+              "en": "Home & Collections"
+            }
+          },
+          {
+            "value": "index,product",
+            "label": {
+              "en": "Home & Products"
+            }
+          },
+          {
+            "value": "index,cart",
+            "label": {
+              "en": "Home & Cart"
+            }
+          },
+          {
+            "value": "index,page",
+            "label": {
+              "en": "Home & Pages"
+            }
+          },
+          {
+            "value": "collection",
+            "label": {
+              "en": "Collections Only"
+            }
+          },
+          {
+            "value": "product",
+            "label": {
+              "en": "Products Only"
+            }
+          },
+          {
+            "value": "product,cart",
+            "label": {
+              "en": "Products Only"
+            }
+          },
+          {
+            "value": "cart",
+            "label": {
+              "en": "Cart Only"
+            }
+          },
+          {
+            "value": "page",
+            "label": {
+              "en": "Pages Only"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Newsletter Modal"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_enabled",
+        "label": {
+          "en": "Newsletter Modal Enabled"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": {
+          "en": "Modal Title"
+        },
+        "default": "DONT'T MISS A BEAT"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_body",
+        "label": {
+          "en": "Modal Body Text"
+        },
+        "default": "<p>Subscribe to the newsletter</p>"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_button",
+        "label": {
+          "en": "Modal Button Text"
+        },
+        "default": "SUBSCRIBE NOW"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Promo Modal"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_enabled",
+        "label": {
+          "en": "Promo Modal Enabled"
+        },
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "promo_code",
+        "info": "A valid discount code to which users signing up will be added to",
+        "label": {
+          "en": "Promo Code"
+        },
+        "default": "20%OFF"
+      },
+      {
+        "type": "text",
+        "id": "promo_title",
+        "label": {
+          "en": "Modal Title"
+        },
+        "default": "BE REWARDED"
+      },
+      {
+        "type": "richtext",
+        "id": "promo_body",
+        "label": {
+          "en": "Modal Body Text"
+        },
+        "default": "<p>Sign up now and receive 20% off your next order</p>"
+      },
+      {
+        "type": "text",
+        "id": "promo_button",
+        "label": {
+          "en": "Modal Button Text"
+        },
+        "default": "GRAB MY CODE"
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Password modal"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "password_enabled",
+        "label": {
+          "en": "Password Modal Enabled"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
